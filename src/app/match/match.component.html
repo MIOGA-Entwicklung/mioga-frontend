@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Hello World</h1>
+          <h1>Warrengruppen Match</h1>
         </div>
       </div>
     </div>
@@ -15,6 +15,45 @@
   <section class="content">
     <div class="container-fluid">
 
+
+      <div class="row">
+
+        <!-- left column -->
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title"> Mioga Shop </h3>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Inject Mioga Tree -->
+            <app-tree [treeList]="IncomingCategoriesList"> </app-tree>
+
+
+          </div>
+        </div>
+
+        <!---------------------------------------------------------------------------------------->
+
+        <!-- right column -->
+        <div class="col-md-6">
+          <!-- Form Element sizes -->
+          <div class="card card-success">
+            <div class="card-header">
+              <h3 class="card-title"> Group To Match</h3>
+            </div>
+
+            <!-- Inject To Match Tree -->
+            <app-tree> </app-tree>
+
+
+          </div>
+        </div>
+
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
 
 
     </div>

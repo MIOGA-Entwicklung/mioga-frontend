@@ -1,0 +1,143 @@
+<table class="table table-hover">
+  <tbody>
+
+
+  <div *ngFor="let cat of treeList ">
+
+    <tr data-widget="expandable-table" aria-expanded="true">
+      <td>
+        <i
+          class="expandable-table-caret fas fa-caret-right fa-fw"></i>
+
+
+        <a href="/findAllChildOne/<%= cat.id %>"> <strong
+          style="color: black"> {{cat.name}} </strong></a>
+      </td>
+    </tr>
+
+    <tr class="expandable-body">
+      <td>
+        <div class="p-0">
+          <table class="table table-hover">
+            <tbody>
+
+            <div *ngFor="let childOne of cat.subCategories ">
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <td style="padding-left: 50px;">
+                  <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
+                  <a href="/findAllChildTwo/<{{childOne.id}}>"> <i
+                    style="color: black"> {{ childOne.name }}  </i>
+                  </a>
+
+                </td>
+              </tr>
+
+              <tr class="expandable-body">
+                <td>
+                  <div class="p-0">
+                    <table class="table table-hover">
+                      <tbody>
+
+
+                      <div *ngFor="let childTwo of childOne.subCategories ">
+
+                        <tr data-widget="expandable-table"
+                            aria-expanded="false">
+                          <td style="padding-left: 70px;">
+                            <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
+                            <a href="/findAllChildThree/{{childTwo.id}}">
+                              {{childOne.name}}
+                            </a>
+                          </td>
+                        </tr>
+
+
+                        <tr class="expandable-body">
+                          <td>
+                            <div class="p-0">
+                              <table class="table table-hover">
+                                <tbody>
+                                <div *ngFor="let childThree of childTwo.subCategories ">
+
+                                  <tr data-widget="expandable-table"
+                                      aria-expanded="false">
+                                    <td style="padding-left: 95px;">
+                                      <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
+                                      <a href="/findAllChildFour/{{childThree.id}}"><i
+                                        style="color: black"> {{childThree.name}} </i></a>
+                                    </td>
+                                  </tr>
+
+                                  <tr class="expandable-body">
+                                    <td>
+                                      <div class="p-0">
+                                        <table class="table table-hover">
+                                          <tbody>
+                                          <div *ngFor="let childFour of childThree.subCategories ">
+
+                                            <tr data-widget="expandable-table"
+                                                aria-expanded="false">
+                                              <td>
+                                                  <span
+                                                    style="padding-left: 100px;">
+                                                     <i
+                                                       class="expandable-table-caret fas fa-caret-right fa-fw"></i>
+                                                    <a href="/findAllChildFive/{{childFour.id}}"> {{childFour.name}} </a> </span>
+                                              </td>
+                                            </tr>
+
+                                            <tr class="expandable-body">
+                                              <td>
+                                                <div class="p-0">
+                                                  <table class="table table-hover">
+                                                    <tbody>
+
+                                                    <div *ngFor="let childFive of childFour.subCategories">
+
+
+                                                      <tr data-widget="expandable-table"
+                                                          aria-expanded="false">
+                                                        <td style="padding-left: 160px;">
+                                                          <a href="/findAllChildFive/{{childFive.id}}"><i
+                                                            style="color: black"> {{childFive.name}} </i></a>
+                                                        </td>
+                                                      </tr>
+
+                                                    </div>
+                                                    </tbody>
+                                                  </table>
+                                                </div>
+                                              </td>
+                                            </tr>
+
+                                          </div>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </div>
+                                </tbody>
+                              </table>
+                            </div>
+                          </td>
+                        </tr>
+                      </div>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </div>
+            </tbody>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </div>
+
+
+  </tbody>
+</table>
+
+

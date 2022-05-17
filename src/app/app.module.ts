@@ -8,11 +8,13 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatchComponent } from './match/match.component';
+import { TreeComponent } from './tree/tree.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MatchComponent
+    MatchComponent,
+    TreeComponent
   ],
   imports: [
     BrowserModule,

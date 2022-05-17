@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Tree} from "../tree/tree";
+import {Category} from "../tree/warrengruppe";
+import {CategoriesService} from "./service";
 
 @Component({
   selector: 'app-match',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MatchComponent implements OnInit {
 
-  constructor() { }
+  IncomingCategoriesList: Category [] = []
+
+  constructor(private categoriesService: CategoriesService) {
+  }
+
+
+  public getCategories(): void {
+    this.categoriesService.getCategories().subscribe((receivedData) => (
+      this.IncomingCategoriesList = receivedData));
+
+    console.log(this.IncomingCategoriesList)
+
+  }
 
   ngOnInit(): void {
+    this.getCategories()
   }
 
 }
