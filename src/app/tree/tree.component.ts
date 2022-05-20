@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {Category} from "../models/Category";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {FlatTreeControl} from "@angular/cdk/tree";
@@ -20,7 +20,7 @@ interface CourseFlatNode {
 
 export class TreeComponent implements OnInit {
 
-  @Input()
+  @Input() @Output()
   public categoriesList: Category[]
 
   @Input()
@@ -30,8 +30,6 @@ export class TreeComponent implements OnInit {
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap = new Map<CourseFlatNode, Category>();
 
-  /** Map from nested node to flattened node. This helps us to keep the same object for selection */
-  nestedNodeMap = new Map<Category, CourseFlatNode>();
 
   /** A selected parent node to be inserted */
   selectedParent: CourseFlatNode | null = null;
