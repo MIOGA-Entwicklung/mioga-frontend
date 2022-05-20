@@ -15,6 +15,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatInputModule} from "@angular/material/input";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 //              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
 @NgModule({
   declarations: [
@@ -22,20 +23,21 @@ import {MatInputModule} from "@angular/material/input";
     MatchComponent,
     TreeComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    LayoutModule,
-    FormsModule,
-    HttpClientModule,
-    NgbModule,
-    BrowserAnimationsModule,
-    MatTreeModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatInputModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        LayoutModule,
+        FormsModule,
+        HttpClientModule,
+        NgbModule,
+        BrowserAnimationsModule,
+        MatTreeModule,
+        MatButtonModule,
+        MatIconModule,
+        MatCheckboxModule,
+        MatInputModule,
+        ScrollingModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
