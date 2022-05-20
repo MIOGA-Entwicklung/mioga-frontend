@@ -3,6 +3,7 @@ import {CategoriesService} from "./service";
 import {Category} from "../models/Category";
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource} from "@angular/material/tree";
 import {FlatTreeControl, NestedTreeControl} from "@angular/cdk/tree";
+import {Warrengruppe} from "../models/Warrengruppen";
 
 interface CourseFlatNode {
   name: string;
@@ -17,7 +18,7 @@ interface CourseFlatNode {
 })
 export class MatchComponent implements OnInit {
 
-  IncomingCategoriesList: Category [] = []
+  IncomingWarrengruppenList: Warrengruppe [] = []
 
   constructor(private categoriesService: CategoriesService) {
   }
@@ -25,13 +26,13 @@ export class MatchComponent implements OnInit {
 
   public getCategories(): void {
 
-    this.categoriesService.getCategories().subscribe((receivedData) => {
+      this.categoriesService.getCategories().subscribe((receivedData:Warrengruppe[]) => {
 
-      this.IncomingCategoriesList = receivedData
+      this.IncomingWarrengruppenList = receivedData
 
-      this.nestedDataSource.data = this.IncomingCategoriesList;
+      this.nestedDataSource.data = this.IncomingWarrengruppenList[0].categories;
 
-      this.flatDataSource.data = this.IncomingCategoriesList;
+      this.flatDataSource.data = this.IncomingWarrengruppenList[1].categories;
 
     })
 

@@ -1,10 +1,10 @@
 import {Category} from "./Category";
 
-export interface warenGruppe{
+export interface Warrengruppe{
   id: string
   name: string
   zuliefererId: string,
   createdAt: string,
   updatedAt: string,
-  children : Category[]
+  categories : Category[]
 }
