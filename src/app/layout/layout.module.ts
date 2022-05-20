@@ -6,6 +6,7 @@ import {NavbarComponent} from './navbar/navbar.component';
 import { BodyComponent } from './body/body.component';
 import {RouterModule} from "@angular/router";
 import {MatchComponent} from "../match/match.component";
+import {WarrengruppenComponent} from "../warrengruppen/warrengruppen.component";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {MatchComponent} from "../match/match.component";
   imports: [
     CommonModule , RouterModule.forRoot([
       {path:"match", component:MatchComponent},
+      {path:"warrengruppe" , component:WarrengruppenComponent}
     ])
   ]
   ,

@@ -20,11 +20,13 @@ interface CourseFlatNode {
 
 export class TreeComponent implements OnInit {
 
+  loader = true;
+
   @Input() @Output()
   public categoriesList: Category[]
 
   @Input()
-  public treeName : string
+  public treeName: string
 
 
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
@@ -47,7 +49,12 @@ export class TreeComponent implements OnInit {
 
 
   ngOnInit() {
+    //Loader variable set false after page load
+    setTimeout(() => {
+      this.loader = false;
+    }, 1000);
     this.getCategories()
+
   }
 
 

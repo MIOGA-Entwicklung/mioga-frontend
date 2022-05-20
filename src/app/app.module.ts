@@ -18,12 +18,16 @@ import {MatInputModule} from "@angular/material/input";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import { AutocompleteAutoActiveComponent } from './autocomplete-auto-active/autocomplete-auto-active.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { WarrengruppenComponent } from './warrengruppen/warrengruppen.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 @NgModule({
   declarations: [
     AppComponent,
     MatchComponent,
     TreeComponent,
     AutocompleteAutoActiveComponent,
+    WarrengruppenComponent,
 
   ],
   imports: [
@@ -41,7 +45,9 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     MatInputModule,
     ScrollingModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [],

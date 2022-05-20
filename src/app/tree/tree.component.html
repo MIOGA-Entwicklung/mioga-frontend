@@ -1,4 +1,7 @@
-<div class="tree-demo-container">
+
+<mat-spinner *ngIf="loader"></mat-spinner>
+
+<div class="tree-demo-container" *ngIf="!loader">
 
   <h2> {{treeName}} </h2>
 
