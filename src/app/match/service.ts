@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Category} from "../models/Category";
 import {Warrengruppe} from "../models/Warrengruppen";
 
 
@@ -19,8 +18,13 @@ export class CategoriesService {
 
   public getCategories(): Observable<Warrengruppe[]> {
     // here is Category i should discript what is coming From the nodejs
-    console.log("In service")
     return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}match`)
   }
+
+  public getWarrengruppen(): Observable<Warrengruppe[]> {
+    return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}warrengruppen/all`)
+  }
+
+
 
 }

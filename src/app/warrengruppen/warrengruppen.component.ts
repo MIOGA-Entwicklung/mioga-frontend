@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CategoriesService} from "../match/service";
+import {Warrengruppe} from "../models/Warrengruppen";
 
 @Component({
   selector: 'app-warrengruppen',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WarrengruppenComponent implements OnInit {
 
-  constructor() { }
+  warrengruppen : Warrengruppe[] = []
 
+  constructor(private categoriesService: CategoriesService ) {
+  }
+
+
+  public getWarrengruppen(): void {
+
+    this.categoriesService.getWarrengruppen().subscribe((receivedData:Warrengruppe[]) => {
+
+      this.warrengruppen = receivedData
+
+    })
+
+  }
   ngOnInit(): void {
+    this.getWarrengruppen()
   }
 
 }
