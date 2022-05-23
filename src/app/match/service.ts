@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Warrengruppe} from "../models/Warrengruppen";
+import {Category} from "../models/Category";
 
 
 
@@ -23,6 +24,10 @@ export class CategoriesService {
 
   public getWarrengruppen(): Observable<Warrengruppe[]> {
     return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}warrengruppen/all`)
+  }
+
+  public getTree(warrengruppeId : string): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.apiServerUrl}getTree/${warrengruppeId}`)
   }
 
 

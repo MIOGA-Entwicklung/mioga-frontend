@@ -21,6 +21,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { WarrengruppenComponent } from './warrengruppen/warrengruppen.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { SingleTreeComponent } from './single-tree/single-tree.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     TreeComponent,
     AutocompleteAutoActiveComponent,
     WarrengruppenComponent,
+    SingleTreeComponent,
 
   ],
   imports: [

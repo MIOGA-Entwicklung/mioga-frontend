@@ -7,6 +7,7 @@ import { BodyComponent } from './body/body.component';
 import {RouterModule} from "@angular/router";
 import {MatchComponent} from "../match/match.component";
 import {WarrengruppenComponent} from "../warrengruppen/warrengruppen.component";
+import {SingleTreeComponent} from "../single-tree/single-tree.component";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {WarrengruppenComponent} from "../warrengruppen/warrengruppen.component";
   imports: [
     CommonModule , RouterModule.forRoot([
       {path:"match", component:MatchComponent},
-      {path:"warrengruppe" , component:WarrengruppenComponent}
+      {path:"warrengruppe" , component:WarrengruppenComponent},
+      {path:"single-tree/:warrengruppeId" , component:SingleTreeComponent , pathMatch: 'full' }
     ])
   ]
   ,

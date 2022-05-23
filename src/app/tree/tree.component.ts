@@ -26,7 +26,7 @@ export class TreeComponent implements OnInit {
   public categoriesList: Category[]
 
   @Input()
-  public treeName: string
+  public treeName: string =''
 
 
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
@@ -42,19 +42,17 @@ export class TreeComponent implements OnInit {
 
 
   public getCategories(): void {
-
     this.flatDataSource.data = this.categoriesList;
-
   }
 
 
   ngOnInit() {
+    console.log("In TreeComponent")
     //Loader variable set false after page load
     setTimeout(() => {
       this.loader = false;
-    }, 1000);
-    this.getCategories()
-
+      this.getCategories()
+    }, 7000);
   }
 
 

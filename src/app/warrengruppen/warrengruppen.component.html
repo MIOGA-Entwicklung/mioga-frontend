@@ -71,10 +71,7 @@
                             {{warrengruppe.zuliefererId}}
                           </td>
                           <td>
-                            <form action="/getTree" method="post">
-                              <input type="hidden" name="warrengruppeId" value="<%= baum.id %>">
-                              <button mat-raised-button color="primary" type="submit">Baum</button>
-                            </form>
+                              <button [routerLink]="['/single-tree' , warrengruppe.id]" mat-raised-button color="primary">Baum</button>
                           </td>
                           <td>
                             <form action="/import" method="post">
