@@ -47,12 +47,11 @@ export class TreeComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log("In TreeComponent")
     //Loader variable set false after page load
     setTimeout(() => {
       this.loader = false;
       this.getCategories()
-    }, 7000);
+    });
   }
 
 

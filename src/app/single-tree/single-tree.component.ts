@@ -1,6 +1,6 @@
 import {Component, OnInit, Output} from '@angular/core';
 import {Category} from "../models/Category";
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {CategoriesService} from "../match/service";
 import {Warrengruppe} from "../models/Warrengruppen";
 @Component({
@@ -11,9 +11,11 @@ import {Warrengruppe} from "../models/Warrengruppen";
 export class SingleTreeComponent implements OnInit {
 
   @Output()
-  injectedCatList: Category[] = [];
+  injectedCatList: Warrengruppe[] = [];
 
   warrengruppeId : string = ""
+
+  loader = false
 
   constructor( private categoriesService : CategoriesService , private route: ActivatedRoute) { }
 
@@ -21,12 +23,11 @@ export class SingleTreeComponent implements OnInit {
 
   public getTree(warrengruppeId : string): void {
 
-    this.categoriesService.getTree(warrengruppeId).subscribe((receivedData:Category[]) => {
+    this.categoriesService.getTree(warrengruppeId).subscribe((receivedData:Warrengruppe[]) => {
 
-      console.log("Single Tree Component")
-      console.log(receivedData)
       this.injectedCatList = receivedData
 
+      this.loader = true
     })
   }
 

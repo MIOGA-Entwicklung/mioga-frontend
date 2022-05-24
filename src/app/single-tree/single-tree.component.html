@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Warrengruppen Match</h1>
+          <h1> Single Tree View </h1>
         </div>
       </div>
     </div>
@@ -19,18 +19,24 @@
 
       <div class="row">
 
-        <!-- left column -->
-        <div class="col-12">
+        <div class="col">
           <!-- general form elements -->
           <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title"> Mioga Shop </h3>
+
+
+            <div class="card-header"  *ngIf="loader" >
+              <h1 class="card-title"> {{injectedCatList[0].name}} </h1>
             </div>
-            <!-- /.card-header -->
+
 
             <!-- Inject Mioga Tree -->
 
-            <app-tree [categoriesList]="injectedCatList"></app-tree>
+            <div *ngIf="loader">
+              <app-tree
+                [categoriesList]="injectedCatList[0].categories"
+                [treeName]="injectedCatList[0].name">
+              </app-tree>
+            </div>
 
           </div>
         </div>

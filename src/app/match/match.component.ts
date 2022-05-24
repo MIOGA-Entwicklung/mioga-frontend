@@ -26,6 +26,7 @@ export class MatchComponent implements OnInit {
   @Output()
   IncomingWarrengruppenList: Warrengruppe [] = []
 
+  loader = false
 
 
   constructor(private categoriesService: CategoriesService ) {
@@ -38,6 +39,7 @@ export class MatchComponent implements OnInit {
 
       this.IncomingWarrengruppenList = receivedData
 
+        this.loader = true
 
     })
 

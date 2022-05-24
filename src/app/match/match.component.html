@@ -30,11 +30,15 @@
 
             <!-- Inject Mioga Tree -->
 
-            <app-tree
-              [categoriesList]="IncomingWarrengruppenList[0].categories"
-              [treeName]="IncomingWarrengruppenList[0].name">
+            <div *ngIf="loader">
 
-            </app-tree>
+              <app-tree
+                [categoriesList]="IncomingWarrengruppenList[0].categories"
+                [treeName]="IncomingWarrengruppenList[0].name">
+
+              </app-tree>
+            </div>
+
 
           </div>
         </div>
@@ -49,12 +53,14 @@
               <h3 class="card-title"> Group To Match</h3>
             </div>
 
+            <div *ngIf="loader">
 
             <app-tree
               [categoriesList]="IncomingWarrengruppenList[1].categories"
               [treeName]="IncomingWarrengruppenList[1].name"
             ></app-tree>
 
+            </div>
 
           </div>
         </div>

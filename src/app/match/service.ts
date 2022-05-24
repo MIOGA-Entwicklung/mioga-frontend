@@ -26,8 +26,8 @@ export class CategoriesService {
     return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}warrengruppen/all`)
   }
 
-  public getTree(warrengruppeId : string): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.apiServerUrl}getTree/${warrengruppeId}`)
+  public getTree(warrengruppeId : string): Observable<Warrengruppe[]> {
+    return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}getTree/${warrengruppeId}`)
   }
 
 
