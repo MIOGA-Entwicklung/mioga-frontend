@@ -22,6 +22,7 @@ import { WarrengruppenComponent } from './warrengruppen/warrengruppen.component'
 import {MatCardModule} from "@angular/material/card";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { SingleTreeComponent } from './single-tree/single-tree.component';
+import {EventEmitterService} from "./event-emitter.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,7 @@ import { SingleTreeComponent } from './single-tree/single-tree.component';
     MatProgressSpinnerModule
 
   ],
-  providers: [],
+  providers: [EventEmitterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

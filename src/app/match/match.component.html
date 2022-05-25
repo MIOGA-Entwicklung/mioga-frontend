@@ -19,7 +19,7 @@
 
       <div class="row">
 
-        <!-- left column -->
+        <!-- left Tree -->
         <div class="col-md-6">
           <!-- general form elements -->
           <div class="card card-primary">
@@ -34,7 +34,9 @@
 
               <app-tree
                 [categoriesList]="IncomingWarrengruppenList[0].categories"
-                [treeName]="IncomingWarrengruppenList[0].name">
+                [treeName]="IncomingWarrengruppenList[0].name"
+
+              (treeSelected)="getEventLeftTree($event)">
 
               </app-tree>
             </div>
@@ -45,7 +47,7 @@
 
         <!-------------------------------------------------------------------------------------- -->
 
-        <!-- right column -->
+        <!-- right Tree -->
         <div class="col-md-6">
           <!-- Form Element sizes -->
           <div class="card card-success">
@@ -58,7 +60,7 @@
             <app-tree
               [categoriesList]="IncomingWarrengruppenList[1].categories"
               [treeName]="IncomingWarrengruppenList[1].name"
-            ></app-tree>
+              (treeSelected)="getEventRightTree($event)"></app-tree>
 
             </div>
 
@@ -68,6 +70,9 @@
         <!--/.col (right) -->
       </div>
       <!-- /.row -->
+
+
+      <button class="btn btn-success" (click)="match()"> Match </button>
 
 
     </div>

@@ -3,16 +3,23 @@
 
 <div class="tree-demo-container" *ngIf="!loader">
 
-  <h2> {{treeName}} </h2>
+  <h2> {{treeName}}   <button class="btn btn-success" (click)="onSelect()"> get match </button>
+  </h2>
 
   <app-autocomplete-auto-active [categoryList] ="categoriesList"></app-autocomplete-auto-active>
 
 
   <div class="card-body table-responsive p-0" style="height: 600px;">
 
+
+
   <mat-tree class="mat-elevation-z4 table table-head-fixed text-nowrap" [dataSource]="flatDataSource" [treeControl]="flatTreeControl">
+
+
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+
       <button mat-icon-button disabled></button>
+
       <mat-checkbox class="checklist-leaf-node"
                     [checked]="checklistSelection.isSelected(node)"
                     (change)="todoLeafItemSelectionToggle(node)">{{node.name}}</mat-checkbox>
@@ -28,10 +35,11 @@
       </button>
 
 
-      <mat-checkbox [checked]="descendantsAllSelected(node)"
+      <mat-checkbox [checked]="descendantsAllSelected(node) "
                     [indeterminate]="descendantsPartiallySelected(node)"
                     (change)="todoItemSelectionToggle(node)">{{node.name}}</mat-checkbox>
     </mat-tree-node>
+
   </mat-tree>
   </div>
 </div>
