@@ -207,6 +207,9 @@ export class TreeComponent implements OnInit {
   }
 
 
+  showMe(){
+    console.log(this.flatDataSource)
+  }
 
 
 }

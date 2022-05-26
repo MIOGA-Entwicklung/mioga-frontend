@@ -6,11 +6,16 @@
            aria-label="Warren Gruppe"
            matInput
            [formControl]="myControl"
-           [matAutocomplete]="auto">
+           [matAutocomplete]="auto"
+           [value]="" (keyup)="searchKeyup($event)">
+
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
+
+      <mat-option *ngFor="let option of matches " [value]="option.name">
+        {{option.name}}
       </mat-option>
+
     </mat-autocomplete>
   </mat-form-field>
 </form>
+

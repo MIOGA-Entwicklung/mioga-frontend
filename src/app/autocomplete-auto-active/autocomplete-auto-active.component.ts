@@ -18,21 +18,41 @@ export class AutocompleteAutoActiveComponent implements OnInit {
 
   filteredOptions: Observable<string[]>;
 
-  ngOnInit() {
+  matches = [];
 
-    for (let cat of this.categoryList){
-       this.options.push(cat.name)
+
+  searchKeyup(ev) {
+
+    /** ev.target : The element whose autofill state changes **/
+
+    let term: any = ev.target;
+    this.matches = [];
+
+    // If what the User Entered is more than zero letters
+    if(term.value.length > 0){
+      //Filter the input with the list
+      this.filter(this.categoryList, term.value);
     }
+
+  }
+  filter(categoriesList, term) {
+    categoriesList.forEach((cat) => {
+      if (cat.name.includes(term)) {
+        this.matches.push(cat);
+      }
+      if (cat.children.length > 0) {
+        this.filter(cat.children, term);
+      }
+    });
+  }
+
+
+  ngOnInit() {
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value)),
+      map(() => this.matches.map(match => match.name)),
     );
-  }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 }
