@@ -1,5 +1,3 @@
-
-
 <div class="content-wrapper">
 
   <!-- Content Header (Page header) -->
@@ -15,67 +13,78 @@
 
   <!-- Main content -->
   <section class="content">
+
+
     <div class="container-fluid">
 
-      <div class="row">
+      <mat-card class="loading" *ngIf="loadingSymbol">
+        <mat-spinner></mat-spinner>
+        <h1 style="margin-top: 11rem"> 🕑 Bitte warten Sie einige Sekunden. Die Bäume werden geladen 🕑  </h1>
 
-        <!-- left Tree -->
-        <div class="col-md-6">
-          <!-- general form elements -->
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title"> Mioga Shop </h3>
+      </mat-card>
+
+      <div *ngIf="!loadingSymbol">
+
+
+        <div class="row">
+
+          <!-- left Tree -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"> Mioga Shop </h3>
+              </div>
+              <!-- /.card-header -->
+
+              <!-- Inject Mioga Tree -->
+
+              <div>
+
+                <app-tree
+                  [categoriesList]="IncomingWarrengruppenList[0].categories"
+                  [treeName]="IncomingWarrengruppenList[0].name"
+
+                  (treeSelected)="getEventLeftTree($event)">
+
+                </app-tree>
+              </div>
+
+
             </div>
-            <!-- /.card-header -->
-
-            <!-- Inject Mioga Tree -->
-
-            <div *ngIf="loader">
-
-              <app-tree
-                [categoriesList]="IncomingWarrengruppenList[0].categories"
-                [treeName]="IncomingWarrengruppenList[0].name"
-
-              (treeSelected)="getEventLeftTree($event)">
-
-              </app-tree>
-            </div>
-
-
           </div>
-        </div>
 
-        <!-------------------------------------------------------------------------------------- -->
+          <!-------------------------------------------------------------------------------------- -->
 
-        <!-- right Tree -->
-        <div class="col-md-6">
-          <!-- Form Element sizes -->
-          <div class="card card-success">
-            <div class="card-header">
-              <h3 class="card-title"> Group To Match</h3>
+          <!-- right Tree -->
+          <div class="col-md-6">
+            <!-- Form Element sizes -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title"> Group To Match</h3>
+              </div>
+
+              <div>
+
+                <app-tree
+                  [categoriesList]="IncomingWarrengruppenList[1].categories"
+                  [treeName]="IncomingWarrengruppenList[1].name"
+                  (treeSelected)="getEventRightTree($event)"></app-tree>
+
+              </div>
+
             </div>
-
-            <div *ngIf="loader">
-
-            <app-tree
-              [categoriesList]="IncomingWarrengruppenList[1].categories"
-              [treeName]="IncomingWarrengruppenList[1].name"
-              (treeSelected)="getEventRightTree($event)"></app-tree>
-
-            </div>
-
           </div>
-        </div>
 
-        <!--/.col (right) -->
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+
+        <button class="btn btn-success" (click)="match()"> Match</button>
+
       </div>
-      <!-- /.row -->
-
-
-      <button class="btn btn-success" (click)="match()"> Match </button>
-
-
     </div>
+
   </section>
   <!-- /.content -->
 

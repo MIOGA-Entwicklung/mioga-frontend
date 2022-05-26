@@ -1,10 +1,8 @@
 
-<mat-spinner *ngIf="loader"></mat-spinner>
 
-<div class="tree-demo-container" *ngIf="!loader">
+<div class="tree-demo-container">
 
-  <h2> {{treeName}}   <button class="btn btn-success" (click)="showMe()"> get match </button>
-  </h2>
+  <h2> {{treeName}} 🌳 </h2>
 
   <app-autocomplete-auto-active [categoryList] ="categoriesList"></app-autocomplete-auto-active>
 

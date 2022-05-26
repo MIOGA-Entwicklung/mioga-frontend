@@ -7,11 +7,11 @@ import {EventEmitterService} from "../event-emitter.service";
 
 
 interface FlatNode {
-  id : string
+  id: string
   name: string;
   expandable: boolean;
   level: number;
-  connectionId : number
+  connectionId: number
 }
 
 
@@ -23,21 +23,20 @@ interface FlatNode {
 
 export class TreeComponent implements OnInit {
 
-  loader = true;
+
 
   @Input() @Output()
   public categoriesList: Category[]
 
   @Input()
-  public treeName: string =''
+  public treeName: string = ''
 
 
   @Output()
   treeSelected = new EventEmitter();
 
 
-
-  constructor(private eventEmitterService: EventEmitterService ) {
+  constructor(private eventEmitterService: EventEmitterService) {
   }
 
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
@@ -58,27 +57,22 @@ export class TreeComponent implements OnInit {
 
 
   ngOnInit() {
-    //Loader variable set false after page load
-    setTimeout(() => {
-      this.loader = false;
-      this.getCategories()
-    });
 
-    if (this.eventEmitterService.subsVar==undefined) {
-      this.eventEmitterService.subsVar = this.eventEmitterService.
-      invokeFirstComponentFunction.subscribe(() => {
+    this.getCategories()
+
+
+    if (this.eventEmitterService.subsVar == undefined) {
+      this.eventEmitterService.subsVar = this.eventEmitterService.invokeFirstComponentFunction.subscribe(() => {
         this.onSelect();
       });
 
       this.eventEmitterService.selected = 'left'
-    }
-    else {
+    } else {
 
-        this.eventEmitterService.subsVar = this.eventEmitterService.
-        invokeFirstComponentFunction.subscribe(() => {
-          this.onSelect();
-        });
-        this.eventEmitterService.selected = 'right'
+      this.eventEmitterService.subsVar = this.eventEmitterService.invokeFirstComponentFunction.subscribe(() => {
+        this.onSelect();
+      });
+      this.eventEmitterService.selected = 'right'
 
     }
 
@@ -96,8 +90,8 @@ export class TreeComponent implements OnInit {
       return {
         name: node.name,
         expandable: node.children?.length > 0,
-        level ,
-        id : node.id , connectionId : node.connectionId
+        level,
+        id: node.id, connectionId: node.connectionId
       }
     },
     node => node.level,
@@ -202,13 +196,8 @@ export class TreeComponent implements OnInit {
 
 
   // On Select send the selected data To the Parent Component
-  onSelect(){
+  onSelect() {
     this.treeSelected.emit(this.checklistSelection.selected)
-  }
-
-
-  showMe(){
-    console.log(this.flatDataSource)
   }
 
 

@@ -1,11 +1,6 @@
 import {Component, Injectable, Input, OnInit, Output} from '@angular/core';
 import {CategoriesService} from "./service";
-import {Category} from "../models/Category";
-import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource} from "@angular/material/tree";
-import {FlatTreeControl, NestedTreeControl} from "@angular/cdk/tree";
 import {Warrengruppe} from "../models/Warrengruppen";
-import {SelectionModel} from "@angular/cdk/collections";
-import {BehaviorSubject} from "rxjs";
 import {EventEmitterService} from "../event-emitter.service";
 
 interface CourseFlatNode {
@@ -27,14 +22,9 @@ export class MatchComponent implements OnInit {
   @Output()
   IncomingWarrengruppenList: Warrengruppe [] = []
 
-  loader = false
-
-
-
-  miogaSelectedList = []
-
-
   toMatchSelectedList = []
+
+  loadingSymbol = false
 
 
   constructor(private categoriesService: CategoriesService , private eventEmitterService: EventEmitterService ) {
@@ -43,11 +33,13 @@ export class MatchComponent implements OnInit {
 
   public getCategories(): void {
 
+      this.loadingSymbol = true
+
       this.categoriesService.getCategories().subscribe((receivedData:Warrengruppe[]) => {
 
       this.IncomingWarrengruppenList = receivedData
 
-        this.loader = true
+        this.loadingSymbol = false
 
     })
 
