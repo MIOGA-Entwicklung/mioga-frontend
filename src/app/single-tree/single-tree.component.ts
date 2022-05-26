@@ -15,7 +15,7 @@ export class SingleTreeComponent implements OnInit {
 
   warrengruppeId : string = ""
 
-  loader = false
+  loadingSymbol = false;
 
   constructor( private categoriesService : CategoriesService , private route: ActivatedRoute) { }
 
@@ -23,11 +23,13 @@ export class SingleTreeComponent implements OnInit {
 
   public getTree(warrengruppeId : string): void {
 
+    this.loadingSymbol = true
+
     this.categoriesService.getTree(warrengruppeId).subscribe((receivedData:Warrengruppe[]) => {
 
       this.injectedCatList = receivedData
 
-      this.loader = true
+      this.loadingSymbol = false
     })
   }
 
