@@ -1,14 +1,7 @@
-import {Component, Injectable, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {CategoriesService} from "./service";
 import {Warrengruppe} from "../models/Warrengruppen";
 import {EventEmitterService} from "../event-emitter.service";
-
-interface CourseFlatNode {
-  name: string;
-  expandable: boolean;
-  level: number;
-}
-
 
 
 
@@ -62,7 +55,6 @@ export class MatchComponent implements OnInit {
     console.log("FROM Right Tree")
     console.dir(event)
   }
-
 
   match(){
     this.eventEmitterService.onMatchTreeButtonClick();
