@@ -2,7 +2,8 @@
 
 <div class="tree-demo-container">
 
-  <h2> {{treeName}} 🌳 </h2>
+  <h2> {{treeName}} 🌳
+    <button class="btn btn-primary" (click)="filterCategories()"> Filter  </button> </h2>
 
   <app-autocomplete-auto-active [categoryList] ="categoriesList"></app-autocomplete-auto-active>
 

@@ -23,6 +23,9 @@ export class AutocompleteAutoActiveComponent implements OnInit {
 
   searchKeyup(ev) {
 
+    console.log(this.myControl)
+
+
     /** ev.target : The element whose autofill state changes **/
 
     let term: any = ev.target;

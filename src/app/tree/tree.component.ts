@@ -51,7 +51,11 @@ export class TreeComponent implements OnInit {
 
 
   public sortCategories() {
-     this.categoriesList.sort((a, b) => (b['children'] || []).length - (a['children'] || []).length);
+    this.categoriesList.sort((a, b) => (b['children'] || []).length - (a['children'] || []).length);
+  }
+
+  public filterCategories() {
+
   }
 
   public getCategories(): void {

@@ -31,5 +31,13 @@ export class CategoriesService {
   }
 
 
+  // Updating an Existing category
+  public updateCategory(toMatchCategory : Category ): Observable<Category> {
+    console.log("Sent")
+    console.log(toMatchCategory)
+    return this.http.put<Category>(`${this.apiServerUrl}match/update`, toMatchCategory)
+  }
+
+
 
 }
