@@ -50,16 +50,23 @@ export class TreeComponent implements OnInit {
   checklistSelection = new SelectionModel<FlatNode>(true /* multiple */);
 
 
-  public sortCategories() {
-    this.categoriesList.sort((a, b) => (b['children'] || []).length - (a['children'] || []).length);
+  public sortCategories(list) {
+    for(let cat of list){
+      if (cat.children.length > 0) {
+        cat.children.sort((a, b) => (b['children'] || []).length - (a['children'] || []).length);
+        this.sortCategories(cat.children)
+      }
+      else list.sort((a, b) => (b['children'] || []).length - (a['children'] || []).length);
+    }
   }
+
 
   public filterCategories() {
 
   }
 
   public getCategories(): void {
-    this.sortCategories()
+    //this.sortCategories(this.categoriesList)
     this.flatDataSource.data = this.categoriesList;
   }
 
