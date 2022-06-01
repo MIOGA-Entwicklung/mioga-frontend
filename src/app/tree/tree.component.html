@@ -21,7 +21,7 @@
 
       <mat-checkbox class="checklist-leaf-node"
                     [checked]="checklistSelection.isSelected(node)"
-                    (change)="todoLeafItemSelectionToggle(node)">{{node.name}}</mat-checkbox>
+                    (change)="todoLeafItemSelectionToggle(node)">{{node.name}} {{node.connectionId}}</mat-checkbox>
     </mat-tree-node>
 
 
@@ -36,7 +36,7 @@
 
       <mat-checkbox [checked]="descendantsAllSelected(node) "
                     [indeterminate]="descendantsPartiallySelected(node)"
-                    (change)="todoItemSelectionToggle(node)">{{node.name}}</mat-checkbox>
+                    (change)="todoItemSelectionToggle(node)">{{node.name}}  {{node.connectionId}}</mat-checkbox>
     </mat-tree-node>
 
   </mat-tree>

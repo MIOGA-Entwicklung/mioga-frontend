@@ -3,6 +3,7 @@ import {CategoriesService} from "./service";
 import {Warrengruppe} from "../models/Warrengruppen";
 import {EventEmitterService} from "../event-emitter.service";
 import {Category} from "../models/Category";
+import {error} from "@angular/compiler/src/util";
 
 
 
@@ -22,7 +23,7 @@ export class MatchComponent implements OnInit {
 
   selectedMiogaCategory : Category
 
-  selectedToMatchCategory : Category
+  selectedToMatchCategoryList : Category []
 
 
 
@@ -52,21 +53,25 @@ export class MatchComponent implements OnInit {
 
 
   getEventLeftTree(event: any){
-    console.log("FROM LEFT Tree")
+
+    console.log("FROM Mioga Tree")
+
+    if(event.length === 0 || !(event.length === 1) ) return
+
     this.selectedMiogaCategory = event[0]
+
     console.log(this.selectedMiogaCategory)
   }
 
   getEventRightTree(event: any){
     console.log("FROM Right Tree")
-    this.selectedToMatchCategory = event[0]
-    console.log(this.selectedToMatchCategory)
+    this.selectedToMatchCategoryList = event
+    console.log(this.selectedToMatchCategoryList)
   }
 
   match(){
     this.eventEmitterService.onMatchTreeButtonClick();
-    this.selectedMiogaCategory.connectionId = this.selectedToMatchCategory.connectionId
-    this.categoriesService.updateCategory(this.selectedToMatchCategory).subscribe(data => {
+    this.categoriesService.updateCategory(this.selectedMiogaCategory , this.selectedToMatchCategoryList).subscribe(data => {
       console.log(data)
     })
   }

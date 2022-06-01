@@ -6,8 +6,6 @@ import {Warrengruppe} from "../models/Warrengruppen";
 import {Category} from "../models/Category";
 
 
-
-
 @Injectable({providedIn: 'root'})
 
 export class CategoriesService {
@@ -15,7 +13,8 @@ export class CategoriesService {
   private apiServerUrl = environment.API_BASEURL
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   public getCategories(): Observable<Warrengruppe[]> {
     // here is Category i should discript what is coming From the nodejs
@@ -26,18 +25,23 @@ export class CategoriesService {
     return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}warrengruppen/all`)
   }
 
-  public getTree(warrengruppeId : string): Observable<Warrengruppe[]> {
+  public getTree(warrengruppeId: string): Observable<Warrengruppe[]> {
     return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}getTree/${warrengruppeId}`)
   }
 
 
   // Updating an Existing category
-  public updateCategory(toMatchCategory : Category ): Observable<Category> {
-    console.log("Sent")
-    console.log(toMatchCategory)
-    return this.http.put<Category>(`${this.apiServerUrl}match/update`, toMatchCategory)
-  }
+  public updateCategory(miogeCategory: Category, toMatchCategory: Category []): Observable<Category> {
 
+      //UPDATE ALL CATEGORIES CONNECTION  ID
+      toMatchCategory.map(cat => cat.connectionId = miogeCategory.connectionId )
+
+/*    return this.http.put<Category>(`${this.apiServerUrl}match/update`,
+      {miogaCategory: miogeCategory, toMatchCategory: toMatchCategory})  */
+
+    return this.http.put<Category>(`${this.apiServerUrl}match/update`, toMatchCategory)
+
+  }
 
 
 }
