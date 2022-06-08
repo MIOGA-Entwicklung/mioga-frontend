@@ -1,0 +1,144 @@
+<div id="main-container" xmlns="http://www.w3.org/1999/html">
+  <div class="content-wrapper">
+
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1> Alle Kontakten</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active"> Alle Kontakten</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="card">
+            <button class="btn btn-lg btn-success" (click)="openAddForm(contactAddModal)">neue Kontakt hinzufügen</button>
+          </div>
+        </div>
+
+        <!-- Display Contacts -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <app-contacts-content [contactsList]="contacts"></app-contacts-content>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Display Contacts -->
+    </section>
+  </div>
+</div>
+
+
+<!-- Add Contact Modal -->
+<section>
+  <ng-template #contactAddModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="addModelForm">Neue Kontakt</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form #addContactForm="ngForm">
+        <div class="card-body">
+
+          <!-- Title -->
+          <div class="form-group">
+            <label for="title">Title</label>
+            <select [ngModel]=Contactdefaultvalue name="title" class="custom-select form-control-border"
+                    id="title"
+                    placeholder="Mr" required>
+              <option>Ms</option>
+              <option>Mr</option>
+            </select>
+          </div>
+
+          <!-- First Name -->
+          <div class="form-group">
+            <label for="vorname">Vorname</label>
+            <input ngModel name="vorname" id="vorname" type="text" class="form-control"
+                   placeholder="Vorname <Optional>">
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-group">
+            <label for="lastName">Nachname *</label>
+            <input ngModel name="name" id="lastName" type="text" class="form-control"
+                   placeholder="Nachname <Optional>" required>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input ngModel name="email" id="email" type="email" class="form-control"
+                   placeholder="Email" required>
+          </div>
+
+          <!-- Company -->
+          <div class="form-group">
+            <label for="company">Firma</label>
+            <input ngModel name="company" id="company" type="text" class="form-control"
+                   placeholder="Firma <Optional>">
+          </div>
+
+          <!-- Mobile -->
+          <div class="form-group">
+            <label for="mobile">Handy</label>
+            <input ngModel name="mobile" id="mobile" type="number" class="form-control"
+                   placeholder="Mobile <Optional>">
+          </div>
+
+          <!-- Telephone -->
+          <div class="form-group">
+            <label for="telephone">Telephone</label>
+            <input ngModel name="telefone" id="telephone" type="number" class="form-control"
+                   placeholder="Telephone <Optional>">
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="description">Beschreibung</label>
+            <input ngModel name="description" id="description" type="text" class="form-control"
+                   placeholder="Description <Optional>">
+          </div>
+
+          <!-- Anmerkung -->
+          <div class="form-group">
+            <label for="anmerkung">Anmerkung</label>
+            <input ngModel name="anmerkung" id="anmerkung" type="text" class="form-control"
+                   placeholder="Anmerkung <Optional>">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button"
+              class="btn btn-outline-dark"
+              class="btn btn-success"
+              [disabled]="addContactForm.invalid"
+              (click)="onAddContact(addContactForm);
+                   modal.close()">Kontakt Speicher
+      </button>
+
+      <button class="btn btn-danger " type="button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        Cancel
+      </button>
+
+    </div>
+  </ng-template>
+</section>
+<!-- /Add Contact Modal -->

@@ -24,6 +24,13 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { SingleTreeComponent } from './single-tree/single-tree.component';
 import {EventEmitterService} from "./event-emitter.service";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import { ZuliefererComponent } from './zulieferer/zulieferer.component';
+import { ContactComponent } from './contact/contact.component';
+import { ZuliefererContentComponent } from './zulieferer/zulieferer-content/zulieferer-content.component';
+import { ErrorComponent } from './error/error.component';
+import { HomeComponent } from './home/home.component';
+import { VarDirective} from './zulieferer/ng-var.directive';
+import { ContactsContentComponent } from './contact/contacts-content/contacts-content.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +40,13 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     AutocompleteAutoActiveComponent,
     WarrengruppenComponent,
     SingleTreeComponent,
+    ZuliefererComponent,
+    ContactComponent,
+    ZuliefererContentComponent,
+    ErrorComponent,
+    HomeComponent,
+    VarDirective,
+    ContactsContentComponent
 
   ],
   imports: [
@@ -52,7 +66,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
 
   ],
   providers: [EventEmitterService , {provide: LocationStrategy , useClass: HashLocationStrategy}],

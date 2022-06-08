@@ -1,0 +1,333 @@
+<!-- Show  Zulieferer Content -->
+<Section>
+  <div *ngFor="let zulieferer of ZuliefererList">
+    <!-- row -->
+    <div class="row" *ngVar="zulieferer.id as zuliefererID">
+      <div class="col-12">
+        <!-- Liferant 01 -->
+        <div class="card">
+          <div class="card-header">
+
+            <h3 class="card-title">
+              <i class="far fa-chart-bar"></i>
+              <b> {{zulieferer.title}} </b>
+            </h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body">
+
+            <div class="row">
+
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Beschreibung</th>
+                    <th>Kontakte</th>
+                    <th>Gehört zu</th>
+                    <th>Aktion</th>
+                  </tr>
+                  </thead>
+
+                  <tbody>
+                  <tr>
+                    <td><b>{{zulieferer.id}}</b></td>
+                    <td><b>{{zulieferer.title}}</b></td>
+                    <td>
+                      <button id="showDescription" class="btn btn-info"
+                              (click)="onShowDescription(showDescriptionsModal,zulieferer)">
+                        Beschreibung
+                      </button>
+                    </td>
+                    <td>
+
+                      <button id="showContactButton" class="btn btn-primary"
+                              (click)="onShowZuliefererContacts(showZuliefererContactsModal,zulieferer)"> Kontakte
+                        Zeigen
+                      </button>
+
+                    </td>
+                    <td><b>{{zulieferer.belongsTo}}</b></td>
+                    <td>
+                      <!-- The Two Button -->
+                      <button class="btn btn-primary" (click)="openEditForm(zuliefererEditForm , zulieferer)"
+                              style="margin-right: 20px; ">
+                        Bearbeiten <i class="fa fa-pencil-alt" style="margin-left: 10px;"></i></button>
+
+                      <button class="btn btn-danger" (click)="onShowDeleteQustion(deleteQuestionModel,zulieferer)">
+                        Entfernen <i
+                        class="fa fa-times"
+                        style="margin-left:10px;"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row for first Liferant end here -->    <!-- row -->
+    </div>
+  </div>
+</Section>
+<!-- /Show Zulieferer Content -->
+
+<!-- Show Edit Zulieferer Modal -->
+<section>
+  <ng-template #zuliefererEditForm let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="editModelForm">Edit Form</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form #editForm="ngForm">
+
+        <input type="hidden" ngModel="{{editZulieferer?.id}}" name="id" class="form-control" id="idEdit"
+               placeholder="id">
+
+        <!-- title -->
+        <div class="form-group">
+          <label for="titleEdit">Title</label>
+          <input type="text" ngModel="{{editZulieferer?.title}}" name="title" class="form-control" id="titleEdit"
+                 placeholder="title">
+        </div>
+
+        <!-- Belongs To -->
+        <div class="form-group">
+          <label for="belongsToEdit"> Gehört Zu * </label>
+          <select class="form-control"
+                  ngModel="{{editZulieferer?.belongsTo}}"
+                  id="belongsToEdit" name="belongsTo">
+            <option class="form-control">MIOGA</option>
+            <option class="form-control">EMK</option>
+          </select>
+        </div>
+
+        <!--Username-->
+        <div class="form-group">
+          <label for="usernameEdit">Kundennummer / username</label>
+          <input ngModel="{{editZulieferer?.username}}" name="username" id="usernameEdit" type="text"
+                 class="form-control" placeholder="Kunndennummer">
+        </div>
+
+        <!--Password-->
+        <div class="form-group">
+          <label for="passwortEdit">Passwort</label>
+          <input ngModel="{{editZulieferer?.password}}" name="password" id="passwortEdit" type="text"
+                 class="form-control" placeholder="Passwort">
+        </div>
+
+
+        <!--Key-->
+        <div class="form-group">
+          <label for="keyEdit">Schlüssel</label>
+          <input ngModel="{{editZulieferer?.key}}" name="key" id="keyEdit" type="text"
+                 class="form-control" placeholder="Schlüssel">
+        </div>
+
+
+        <!--description-->
+        <div class="form-group">
+          <label for="descriptionEdit">Beschreibung</label>
+          <input ngModel="{{editZulieferer?.description}}" name="description" id="descriptionEdit"
+                 type="text"
+                 class="form-control" placeholder="description">
+        </div>
+
+        <!-- uuid -->
+
+        <input type="hidden" ngModel="{{editZulieferer?.uuid}}" name="uuid" id="uuidEdit"
+               class="form-control">
+
+        <!-- Succeed at -->
+        <div class="form-group">
+          <input type="hidden" ngModel="{{editZulieferer?.successAt}}" name="successAt" id="succeedAtEdit"
+                 class="form-control">
+        </div>
+
+
+        <!-- timetableId -->
+        <div class="form-group">
+          <input ngModel="{{editZulieferer?.timetableId}}" name="timetableId" id="timetableIdEdit"
+                 type="text"
+                 class="form-control"
+                 placeholder="Time Table ID" hidden>
+        </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark"
+              class="btn btn-success"
+              [disabled]="editForm.invalid"
+              (click)="onSubmitUpdateZulieferer(editForm.value); modal.close()">
+        Änderung Speichern
+      </button>
+
+      <button class="btn btn-danger " type="button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        Cancel
+      </button>
+    </div>
+  </ng-template>
+</section>
+<!-- /Show Edit Zulieferer Modal -->
+
+
+<!-- Show Zulieferer Contacts -->
+<section>
+  <ng-template #showZuliefererContactsModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="zulieferkontakteHeader">Kontakte</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="card-body pb-0" *ngFor="let contact of zuliefercontactList">
+        <div class="card bg-light d-flex flex-fill">
+          <!-- header Title-->
+          <div class="card-header text-muted border-bottom-0">
+            {{contact.company}}
+          </div>
+          <!-- card body -->
+          <div class="card-body pt-0">
+            <div class="row">
+              <div class="col-7">
+                <h2 class="lead"><b> {{contact.title}} {{contact.vorname}} {{contact.name}}</b></h2>
+                <p class="text-muted text-sm"><b> Beschreibung : </b> {{contact.description}} </p>
+                <ul class="ml-4 mb-0 fa-ul text-muted">
+                  <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>
+                    Email: {{contact.email}}
+                  </li>
+                  <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Mobile:
+                    : {{contact.mobile}}
+                  </li>
+                  <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Tel:
+                    : {{contact.telefone}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+
+      <button class="btn btn-danger " type="button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        CLose
+      </button>
+    </div>
+  </ng-template>
+</section>
+<!-- /Show Zulieferer Contacts -->
+
+<!-- Show Description Contacts -->
+<section>
+  <ng-template #showDescriptionsModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="showDescriptionHeader"> {{zuliefererDescription.title}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="card bg-light d-flex flex-fill">
+        <!-- card body -->
+        <div class="card-body pt-0">
+          <br>
+          <div class="row">
+            <div class="col-7">
+              Kundennummer : {{zuliefererDescription.username}}
+            </div>
+          </div>
+
+          <br>
+          <div class="row">
+            <div class="col-7">
+              Passwort : {{zuliefererDescription.password}}
+            </div>
+          </div>
+
+          <br>
+          <div class="row">
+            <div class="col-7">
+              Schlüssel : {{zuliefererDescription.key}}
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-7">
+              Beschreibung : {{zuliefererDescription.description}}
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+
+      <button class="btn btn-danger " type="button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        CLose
+      </button>
+    </div>
+  </ng-template>
+</section>
+<!-- /Show Zulieferer Contacts -->
+
+
+<!-- Show Delete Zulieferer Question -->
+<section>
+  <ng-template #deleteQuestionModel let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="zuLiefererDeleteModelFormHeader">Kontakte</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p> möchten Sie {{deleteZulieferer?.title}} mit {{deleteZulieferer?.id}} entfernen ?</p>
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        (click)="
+        onDeleteZulieferer(deleteZulieferer?.id);
+        modal.close()"
+        class="btn btn-danger"
+        data-dismiss="modal"> Ja
+      </button>
+
+      <button
+        class="btn btn-primary"
+        type="button" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        Nein
+      </button>
+
+    </div>
+
+  </ng-template>
+</section>
+<!-- / Show Delete Zulieferer Question -->

@@ -1,0 +1,319 @@
+<div class="content-wrapper">
+
+  <!--  Page Header -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <div class="col-sm-6">
+          <h1 (click)="switchToAll()"> Lieferanten
+            <button class="btn btn btn-success" (click)="openAddZuliefererForm(ZuliefererAddModal)">neue Zulieferer
+              hinzufügen
+            </button>
+          </h1>
+
+          <br>
+          <div class="row">
+            <button class="btn btn-outline-dark" (click)="switchToAll()"> Lieferanten</button>
+            <button class="btn btn-outline-info" style="margin-left: 1em;" (click)="switchToMioga()"> Mioga</button>
+            <button class="btn btn-outline-warning" style="margin-left: 1em;" (click)="switchToEmk()"> EMK</button>
+
+          </div>
+
+
+        </div>
+
+        <div class="row">
+          <div class="card">
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Lieferanten</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--  /Page Header -->
+
+
+  <!--  Page All content TableData -->
+  <section class="content">
+    <div class="container-fluid">
+      <app-zulieferer-content [ZuliefererList]="zulieferer"
+                              [zuliefercontactList]="zulieferercontactList">
+      </app-zulieferer-content>
+    </div>
+  </section>
+  <!-- / Page content TableData -->
+
+
+  <!-- Notification If No Zulieferer -->
+  <div *ngIf="zulieferer?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">Kein Zulieferer!</h4>
+
+    </div>
+  </div>
+  <!-- /Notification If No Zulieferer -->
+
+</div>
+
+
+<!-- Add Zulieferer Modal -->
+<section>
+  <ng-template #ZuliefererAddModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="addModelForm">Neue Zulieferer</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form [formGroup]="zuliefererForm">
+        <!-- Modal body -->
+        <div class="modal-body">
+
+          <div class="container">
+
+            <div class="row">
+              <div class="col">
+                <h4 class="modal-title">Zulieferer Daten</h4>
+              </div>
+            </div>
+
+            <br>
+            <div class="row">
+
+              <div class="col">
+
+                <button class="btn btn-success" type="button" (click)="AddConnection()"> Add Connection</button>
+
+                <button class="btn btn-success " style="margin-left: 10px;" type="button" (click)="AddContact()"> Add
+                  Contact
+                </button>
+
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <!-- Add Form Body -->
+          <div class="modal-body">
+
+            <!-- Add Zulieferer Form -->
+
+
+            <div class="form-group">
+              <label for="titleAdd">Title *</label>
+              <input
+                type="text"
+                id="titleAdd"
+                placeholder="Title"
+                formControlName="title"
+                class="form-control">
+            </div>
+
+            <!-- Belongs To -->
+            <div class="form-group">
+              <label for="belongsTo"> Gehört Zu * </label>
+              <select class="form-control"
+                      formControlName="belongsTo"
+                      id="belongsTo">
+                <option class="form-control">MIOGA</option>
+                <option class="form-control">EMK</option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label for="username">Kundennummer/username</label>
+              <input
+                placeholder="Kundennummer <Optional>"
+                type="text"
+                id="username"
+                formControlName="username"
+                class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="password">Passwort</label>
+              <input
+                placeholder="Passwort <Optional>"
+                type="text"
+                id="password"
+                formControlName="password"
+                class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="password">Schlüssel</label>
+              <input
+                placeholder="Schlüssel <Optional>"
+                type="text"
+                id="key"
+                formControlName="key"
+                class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="zuliefererDescription">Beschreibung</label>
+              <textarea
+                placeholder="Beschreibung <Optional>"
+                type="text"
+                id="zuliefererDescription"
+                formControlName="description"
+                name="description"
+                rows="5"
+                class="form-control">
+              </textarea>
+            </div>
+
+
+            <ng-container formArrayName="connection">
+              <ng-container *ngFor="let connectionFrom of connection.controls; let i = index">
+
+                <div class="row">
+                  <div class="col">
+                    <h4 class="modal-title">Connection Configuration</h4>
+                  </div>
+                </div>
+                <div class="modal-body">
+                  <div [formGroup]="connectionFrom">
+
+                    <!-- url -->
+                    <div class="form-group">
+                      <label>URL</label>
+                      <input formControlName="url" type="text" class="form-control"
+                             placeholder="URL <Optional>">
+                    </div>
+
+                    <!-- target -->
+                    <div class="form-group">
+                      <label>Target </label>
+                      <input formControlName="target" type="text" class="form-control"
+                             placeholder="Target <Optional>">
+                    </div>
+
+                    <!-- Type -->
+                    <div class="form-group">
+                      <label> Type </label>
+                      <input formControlName="type" name="type" type="text" class="form-control" placeholder="type">
+                    </div>
+
+                    <button class="btn btn-danger" type="button" (click)="deleteConnection(i)"> Connection löschen
+                    </button>
+                  </div>
+                </div>
+                <hr>
+              </ng-container>
+            </ng-container>
+
+
+            <ng-container formArrayName="contacts">
+              <ng-container *ngFor="let contactForm of contacts.controls; let i = index">
+
+                <div class="row">
+                  <div class="col">
+                    <h4 class="modal-title">Kontakt Daten</h4>
+                  </div>
+                </div>
+                <div class="modal-body">
+                  <div [formGroup]="contactForm">
+                    <!-- Title -->
+                    <div class="form-group">
+                      <label>Title *</label>
+                      <select name="title"
+                              formControlName="title"
+                              class="form-control">
+                        <option class="form-control">Frau</option>
+                        <option class="form-control">Herr</option>
+                      </select>
+                    </div>
+
+                    <!-- First Name -->
+                    <div class="form-group">
+                      <label>Vorname</label>
+                      <input formControlName="vorname" type="text" class="form-control"
+                             placeholder="Vorname <Optional>">
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="form-group">
+                      <label>Nachname * </label>
+                      <input formControlName="name" type="text" class="form-control"
+                             placeholder="Nachname <Optional>">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                      <label> Email * </label>
+                      <input formControlName="email" name="email"  class="form-control" placeholder="Email" ngModel email>
+                    </div>
+
+                    <!-- Company -->
+                    <div class="form-group">
+                      <label> Firma *</label>
+                      <input formControlName="company" name="company" type="text" class="form-control"
+                             placeholder="Firma">
+                    </div>
+
+                    <!-- Mobile -->
+                    <div class="form-group">
+                      <label> Mobile</label>
+                      <input formControlName="mobile" name="mobile" type="text" class="form-control" placeholder="Mobile <Optional>">
+                    </div>
+
+                    <!-- Telephone -->
+                    <div class="form-group">
+                      <label>Telephone</label>
+                      <input formControlName="telefone" name="telefone" type="text" class="form-control" placeholder="Telephone <Optional>">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                      <label>Beschreibung</label>
+                      <input formControlName="description" name="description" type="text" class="form-control"
+                             placeholder="Beschreibung <Optional>">
+                    </div>
+
+                    <!-- Anmerkung -->
+                    <div class="form-group">
+                      <label>Anmerkung</label>
+                      <input formControlName="anmerkung" name="anmerkung" type="text" class="form-control"
+                             placeholder="Anmerkung <Optional>">
+                    </div>
+
+                    <button class="btn btn-danger" type="button" (click)="deleteContact(i)"> Kontakt löschen
+                    </button>
+                  </div>
+                </div>
+                <hr>
+              </ng-container>
+            </ng-container>
+
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger " type="button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        Cancel
+      </button>
+      <ng-container *ngIf=" contactLenth > 0">
+        <button [disabled]="zuliefererForm.invalid " class="btn btn-primary" (click)="onAddzulieferer(); modal.close()">
+          Zulieferer Speicher
+        </button>
+      </ng-container>
+    </div>
+  </ng-template>
+</section>
+<!-- /Add Zulieferer Modal -->
+
+

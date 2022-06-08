@@ -1,0 +1,210 @@
+<div class="card-header">
+  <h3 class="card-title">kontakte Hover Table </h3>
+
+  <div class="card-tools">
+    <div class="input-group input-group-sm" style="width: 150px;">
+      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-default">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /.card-header -->
+<div class="card-body table-responsive p-0">
+  <table class="table table-hover text-nowrap">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Vorname</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Firma</th>
+      <th>Mobile</th>
+      <th>Telefone</th>
+      <th>Beschreibung</th>
+      <th>Anmerkung</th>
+      <th>Updated at</th>
+      <th>Succeed at</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let contact of contactsList">
+      <td>{{contact.title}}</td>
+      <td>{{contact.vorname}}</td>
+      <td>{{contact.name}}</td>
+      <td>{{contact.email}}</td>
+      <td>{{contact.company}}</td>
+      <td>{{contact.mobile}}</td>
+      <td>{{contact.telefone}}</td>
+      <td>{{contact.description}}</td>
+      <td>{{contact.anmerkung}}</td>
+      <td>{{contact.updatedAt}}</td>
+      <td>{{contact.successAt}}</td>
+      <td>
+        <!-- The Two Button -->
+        <button class="btn btn-primary" (click)="openEditForm(contactEditForm , contact)" style="margin-right: 20px; ">
+          Bearbeiten <i class="fa fa-pencil-alt" style="margin-left: 10px;"></i></button>
+
+        <button class="btn btn-danger" (click)="onShowDeleteQustion(deleteQuestionModel,contact)"> Entfernen <i class="fa fa-times"
+                                                                                                                style="margin-left:10px;"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+<!-- /.card-body -->
+
+
+<!-- Edit Contact Modal -->
+<section>
+  <ng-template #contactEditForm let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="editModelForm">Edit Form</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form #editForm="ngForm" class="form">
+
+        <input type="hidden" ngModel="{{editContact?.id}}" name="id" class="form-control" id="idEdit"
+               placeholder="id">
+
+        <div class="form-group">
+          <label for="title">Title</label>
+          <select ngModel="{{editContact?.title}}" name="title" class="custom-select form-control-border" id="title" placeholder="Mr" required>
+            <option>Herr</option>
+            <option>Frau</option>
+          </select>
+        </div>
+
+        <!-- First Name -->
+        <div class="form-group">
+          <label for="vornameEdit">First Name</label>
+          <input ngModel="{{editContact?.vorname}}" name="vorname" id="vornameEdit" type="text"
+                 class="form-control"
+                 placeholder="Vorname <Optional>">
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="lastNameEdit">Nachname *</label>
+          <input ngModel="{{editContact?.name}}" name="name" id="lastNameEdit" type="text" class="form-control"
+                 placeholder="Nachname <Optional>" required>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="emailEdit">Email *</label>
+          <input ngModel="{{editContact?.email}}" name="email" id="emailEdit" type="email" class="form-control"
+                 placeholder="email" required>
+        </div>
+
+        <!-- Company -->
+        <div class="form-group">
+          <label for="companyEdit">Firma</label>
+          <input ngModel="{{editContact?.company}}" name="company" id="companyEdit" type="text"
+                 class="form-control"
+                 placeholder="Firma <Optional>">
+        </div>
+
+        <!-- Mobile -->
+        <div class="form-group">
+          <label for="mobileEdit">Handy</label>
+          <input ngModel="{{editContact?.mobile}}" name="mobile" id="mobileEdit" type="text"
+                 class="form-control" placeholder="Mobile <Optional>">
+        </div>
+
+        <!-- Telephone -->
+        <div class="form-group">
+          <label for="telephoneEdit">Telephone</label>
+          <input ngModel="{{editContact?.telefone}}" name="telefone" id="telephoneEdit" type="text"
+                 class="form-control"
+                 placeholder="Telephone <Optional>">
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="descriptionEdit">Description</label>
+          <input ngModel="{{editContact?.description}}" name="description" id="descriptionEdit" type="text"
+                 class="form-control"
+                 placeholder="Description <Optional>">
+        </div>
+
+        <!-- Anmerkung  -->
+        <div class="form-group">
+          <label for="anmerkungEdit">Anmerkung</label>
+          <input ngModel="{{editContact?.anmerkung}}" name="anmerkung" id="anmerkungEdit" type="text"
+                 class="form-control"
+                 placeholder="Anmerkung <Optional>">
+        </div>
+
+
+        <!-- Succeed at -->
+        <div class="form-group">
+          <input type="hidden" ngModel="{{editContact?.successAt}}" name="successAt" id="succeedAtEdit"
+                 class="form-control">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark"
+              class="btn btn-success"
+              [disabled]="editForm.invalid"
+              (click)="onSubmitUpdateContact(editForm.value); modal.close()">
+        Änderung Speichern
+      </button>
+
+      <button class="btn btn-danger " type="button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        Cancel
+      </button>
+    </div>
+  </ng-template>
+</section>
+<!-- /Edit Contact Modal -->
+
+<!-- Show Delete Contact Question -->
+<section>
+  <ng-template #deleteQuestionModel let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="contactDeleteModelFormHeader">Kontakte</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p> möchten Sie {{deleteContact?.title}} mit {{deleteContact?.id}} entfernen ?</p>
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        (click)="
+        onDeleteContact(deleteContact?.id);
+        modal.close()"
+        class="btn btn-danger"
+        data-dismiss="modal"> Ja
+      </button>
+
+      <button
+        class="btn btn-primary"
+        type="button" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        Nein
+      </button>
+
+    </div>
+
+  </ng-template>
+</section>
+<!-- / Show Delete Contact Question -->
