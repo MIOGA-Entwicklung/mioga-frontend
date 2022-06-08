@@ -9,25 +9,44 @@
               <div class="card-header">
                 <h3 class="card-title">Add New WarrenGruppe</h3>
               </div>
-              <form action="/add-warrengruppe" method="POST">
+
+
+
+              <form #postLieferantForm="ngForm">
                 <div class="card-body">
+
+
                   <div class="form-group">
+
                     <label>WarenGruppe Name</label>
-                    <input type="text" name="warrengruppeName" class="form-control" id="warrengruppeName"
-                           placeholder="WarenGruppe Name" required>
+                    <input type="text" name="warrengruppeName" class="form-control" id="warrengruppeName" placeholder="WarenGruppe Name" required ngModel>
+
                   </div>
+
                   <div class="form-group">
 
-                    <select class="form-control" name="zuliefererUUID">
 
+                    <select class="form-control" name="connectionId" [(ngModel)]="selectedId">
+                      <option value="{{zulieferer.connectionId}}" *ngFor="let zulieferer of zulieferList">{{zulieferer.title}}</option>
                     </select>
+
+
+<!--                      <select class="form-control" ngModel = {{zulieferer.id}}>-->
+<!--                        <option  name="connectionId" *ngFor="let zuliefer of zulieferList"> {{zuliefer.title}} </option>-->
+<!--                      </select>-->
+
+
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary" (click)="postLieferant(postLieferantForm)">Submit</button>
                 </div>
               </form>
+
+
+
+
             </div>
               <div class="row">
                 <div class="col-12">

@@ -23,6 +23,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { SingleTreeComponent } from './single-tree/single-tree.component';
 import {EventEmitterService} from "./event-emitter.service";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +55,7 @@ import {EventEmitterService} from "./event-emitter.service";
     MatProgressSpinnerModule
 
   ],
-  providers: [EventEmitterService],
+  providers: [EventEmitterService , {provide: LocationStrategy , useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

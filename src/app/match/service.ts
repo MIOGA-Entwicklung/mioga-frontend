@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Warrengruppe} from "../models/Warrengruppen";
 import {Category} from "../models/Category";
+import {Zulieferer} from "../models/Zulieferer";
 
 
 @Injectable({providedIn: 'root'})
@@ -11,6 +12,8 @@ import {Category} from "../models/Category";
 export class CategoriesService {
 
   private apiServerUrl = environment.API_BASEURL
+
+  private lieferantenUrl = environment.lieferantAPI
 
 
   constructor(private http: HttpClient) {
@@ -43,5 +46,17 @@ export class CategoriesService {
 
   }
 
+
+
+  public getZulieferer() : Observable<Zulieferer[]> {
+    return this.http.get<Zulieferer[]>(`${this.lieferantenUrl}zulieferer/all`)
+  }
+
+
+  public postLieferant(name: String, connectionId: number): Observable<Warrengruppe> {
+
+    return this.http.post<Warrengruppe>(`${this.apiServerUrl}add-warrengruppe`, {name : name , connectionId : connectionId})
+
+  }
 
 }
