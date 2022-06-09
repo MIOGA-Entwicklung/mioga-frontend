@@ -3,7 +3,7 @@ import {CategoriesService} from "./service";
 import {Warrengruppe} from "../models/Warrengruppen";
 import {EventEmitterService} from "../event-emitter.service";
 import {Category} from "../models/Category";
-import {error} from "@angular/compiler/src/util";
+import {ActivatedRoute} from "@angular/router";
 
 
 
@@ -25,17 +25,19 @@ export class MatchComponent implements OnInit {
 
   selectedToMatchCategoryList : Category []
 
+  private wantToMatchShopId: string;
 
 
-  constructor(private categoriesService: CategoriesService , private eventEmitterService: EventEmitterService ) {
+
+  constructor(private categoriesService: CategoriesService , private eventEmitterService: EventEmitterService ,private route: ActivatedRoute ) {
   }
 
 
-  public getCategories(): void {
+  public getCategories(wantToMatchShopId : string): void {
 
       this.loadingSymbol = true
 
-      this.categoriesService.getCategories().subscribe((receivedData:Warrengruppe[]) => {
+      this.categoriesService.getCategories(wantToMatchShopId).subscribe((receivedData:Warrengruppe[]) => {
 
       this.IncomingWarrengruppenList = receivedData
 
@@ -47,7 +49,11 @@ export class MatchComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getCategories()
+    this.route.params.subscribe(params => {
+      this.wantToMatchShopId = params['wantToMatchShopId'];
+    });
+
+    this.getCategories(this.wantToMatchShopId)
 
   }
 

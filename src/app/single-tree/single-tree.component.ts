@@ -1,5 +1,4 @@
 import {Component, OnInit, Output} from '@angular/core';
-import {Category} from "../models/Category";
 import { ActivatedRoute } from '@angular/router';
 import {CategoriesService} from "../match/service";
 import {Warrengruppe} from "../models/Warrengruppen";

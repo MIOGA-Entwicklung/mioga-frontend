@@ -23,7 +23,7 @@ import {HomeComponent} from "../home/home.component";
   ],
   imports: [
     CommonModule , RouterModule.forRoot([
-      {path:"match", component:MatchComponent},
+      {path:"match/:wantToMatchShopId", component:MatchComponent, pathMatch: 'full' },
       {path:"warrengruppe" , component:WarrengruppenComponent},
       {path:"single-tree/:warrengruppeId" , component:SingleTreeComponent , pathMatch: 'full' },
       {path:"", component:HomeComponent},
