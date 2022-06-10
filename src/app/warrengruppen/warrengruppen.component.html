@@ -7,7 +7,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Add New WarrenGruppe</h3>
+                <h2 class="card-title">Neue Warengruppe hinzufügen</h2>
               </div>
 
               <form #postLieferantForm="ngForm">
@@ -16,25 +16,19 @@
 
                   <div class="form-group">
 
-                    <label>WarenGruppe Name</label>
+                    <label>Warengruppe Name :</label>
                     <input type="text" name="warrengruppeName" class="form-control" id="warrengruppeName" placeholder="WarenGruppe Name" required ngModel>
 
                   </div>
 
                   <div class="form-group">
-
-
-                    <select class="form-control" name="connectionId" [(ngModel)]="selectedId">
-                      <option value="{{zulieferer.connectionId}}" *ngFor="let zulieferer of zulieferList">{{zulieferer.title}}</option>
+                    <label for="selectForm"> Wählen Sie einen Lieferanten aus, um ihn mit der Produktgruppe zu verbinden : </label>
+                    <select class="form-control" name="connectionId" [(ngModel)]="selectedId" id="selectForm">
+                      <option value="{{zulieferer.connectionId}}" *ngFor="let zulieferer of zulieferList"> {{zulieferer.title}} </option>
                     </select>
-
-
-<!--                      <select class="form-control" ngModel = {{zulieferer.id}}>-->
-<!--                        <option  name="connectionId" *ngFor="let zuliefer of zulieferList"> {{zuliefer.title}} </option>-->
-<!--                      </select>-->
-
-
                   </div>
+
+
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
@@ -71,15 +65,16 @@
                         <thead>
                         <tr>
                           <th>ID</th>
-                          <th> Baum Für</th>
-                          <th>Zulieferer connection Id</th>
-                          <th>See Tree</th>
+                          <th>Lieferant</th>
+                          <th> Verbindung ID </th>
+                          <th>Status</th>
+                          <th>Baum Ansehen</th>
                           <th>Match</th>
                           <th>Import</th>
                           <th>Delete</th>
                         </tr>
                         </thead>
-                        <tbody *ngFor="let warrengruppe of warrengruppen">
+                        <tbody *ngFor="let warrengruppe of warrengruppenList">
 
                         <tr>
                           <td> {{warrengruppe.id}}</td>
@@ -87,12 +82,18 @@
                           <td>
                             {{warrengruppe.zuliefererId}}
                           </td>
+
                           <td>
-                              <button [routerLink]="['/single-tree' , warrengruppe.id]" mat-raised-button color="primary">Baum</button>
+                            <span *ngIf="warrengruppe.status; else elseBlock"> <b style="color: #3e8e41"> Imported  &#10003; </b> </span>
+                            <ng-template #elseBlock> <b style="color: red">Not Imported &#120; </b></ng-template>
                           </td>
 
                           <td>
-                              <button [routerLink]="['/match' , warrengruppe.id]" mat-raised-button color="accent" value="submit"> Match</button>
+                              <button [routerLink]="['/single-tree' , warrengruppe.id]" mat-raised-button color="primary" [disabled]="!warrengruppe.status">Baum</button>
+                          </td>
+
+                          <td>
+                              <button [routerLink]="['/match' , warrengruppe.id]" mat-raised-button color="accent" value="submit" [disabled]="!warrengruppe.status || warrengruppe.name == 'Mioga' "> Match</button>
                           </td>
 
                           <td>

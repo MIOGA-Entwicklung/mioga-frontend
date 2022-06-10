@@ -12,7 +12,7 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class WarrengruppenComponent implements OnInit {
 
-  warrengruppen: Warrengruppe[] = []
+  warrengruppenList: Warrengruppe[] = []
 
   zulieferList: Zulieferer[]
 
@@ -29,7 +29,7 @@ export class WarrengruppenComponent implements OnInit {
 
   public getWarrengruppen(): void {
     this.categoriesService.getWarrengruppen().subscribe((receivedData: Warrengruppe[]) => {
-      this.warrengruppen = receivedData
+      this.warrengruppenList = receivedData
     })
 
   }
