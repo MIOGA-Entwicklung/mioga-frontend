@@ -23,11 +23,8 @@ export class WarrengruppenComponent implements OnInit {
 
 
   public getWarrengruppen(): void {
-
     this.categoriesService.getWarrengruppen().subscribe((receivedData: Warrengruppe[]) => {
-
       this.warrengruppen = receivedData
-
     })
 
   }
@@ -36,7 +33,6 @@ export class WarrengruppenComponent implements OnInit {
 
     this.categoriesService.getZulieferer().subscribe((receivedData: Zulieferer[]) => {
       this.zulieferList = receivedData
-      console.log(receivedData)
     })
   }
 
@@ -46,16 +42,29 @@ export class WarrengruppenComponent implements OnInit {
     this.getLieferanten()
   }
 
-  postLieferant(postLieferantForm: NgForm): void {
+  postWarrengruppe(postLieferantForm: NgForm): void {
 
     let name = postLieferantForm.value.warrengruppeName
     let id = postLieferantForm.value.connectionId
 
-    this.categoriesService.postLieferant(name, id).subscribe(data => {
-      console.log(data)
-      window.location.reload();
+    this.categoriesService.postWarrengruppe(name, id).subscribe((response : void)  => {
+      console.log(response)
+      this.getWarrengruppen()
     })
 
+  }
 
+    postDelete(postDeleteForm: string) {
+      this.categoriesService.deleteWarrengruppe(postDeleteForm).subscribe((response : void)=> {
+          console.log(response)
+          this.getWarrengruppen()
+        })
+    }
+
+  postImportTree(warrentgruppeId : string , connectionId : number) {
+    this.categoriesService.importTree(warrentgruppeId , connectionId).subscribe((response : void)=> {
+      console.log(response)
+      this.getWarrengruppen()
+    })
   }
 }

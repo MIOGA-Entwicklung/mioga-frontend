@@ -10,8 +10,6 @@
                 <h3 class="card-title">Add New WarrenGruppe</h3>
               </div>
 
-
-
               <form #postLieferantForm="ngForm">
                 <div class="card-body">
 
@@ -40,7 +38,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary" (click)="postLieferant(postLieferantForm)">Submit</button>
+                  <button type="submit" class="btn btn-primary" (click)="postWarrengruppe(postLieferantForm)">Submit</button>
                 </div>
               </form>
 
@@ -52,7 +50,7 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Select one Category</h3>
+                      <a href="http://localhost:3000/backup" class="btn btn-outline-dark"> Backup </a>
 
                       <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
@@ -76,9 +74,9 @@
                           <th> Baum Für</th>
                           <th>Zulieferer connection Id</th>
                           <th>See Tree</th>
+                          <th>Match</th>
                           <th>Import</th>
                           <th>Delete</th>
-                          <th>edit</th>
                         </tr>
                         </thead>
                         <tbody *ngFor="let warrengruppe of warrengruppen">
@@ -92,27 +90,18 @@
                           <td>
                               <button [routerLink]="['/single-tree' , warrengruppe.id]" mat-raised-button color="primary">Baum</button>
                           </td>
-                          <td>
-                            <form action="/import" method="post">
-                              <input type="hidden" name="zuliefererConnectionId" value="<%= baum.zuliefererId%>">
-                              <input type="hidden" name="warrengruppeId" value="<%= baum.id %>">
 
-                              <button value="submit"> Import</button>
-                            </form>
+                          <td>
+                              <button [routerLink]="['/match' , warrengruppe.id]" mat-raised-button color="accent" value="submit"> Match</button>
+                          </td>
+
+                          <td>
+                              <button (click)="postImportTree(warrengruppe.id , warrengruppe.zuliefererId)" mat-raised-button color="primary" value="submit"> Import</button>
                           </td>
                           <td>
-                            <form action="/delete-warrengruppe" method="post">
-                              <input type="hidden" name="warrengruppeId" value="<%= baum.id %>">
-                              <input type="hidden" name="warrengruppeName" value="<%= baum.name %>">
-                              <button value="submit"> Delete</button>
-                            </form>
+                              <button value="submit" (click)="postDelete(warrengruppe.id)" mat-raised-button color="warn"> Delete</button>
                           </td>
-                          <td>
-                            <form action="/get-update-warrengruppe" method="post">
-                              <input type="hidden" name="warrengruppeId" value="<%= baum.id %>">
-                              <button value="submit"> Edit</button>
-                            </form>
-                          </td>
+
                         </tr>
 
                         </tbody>

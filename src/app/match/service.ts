@@ -19,9 +19,9 @@ export class CategoriesService {
   constructor(private http: HttpClient) {
   }
 
-  public getCategories(): Observable<Warrengruppe[]> {
+  public getCategories(wantToMatchShopId : string): Observable<Warrengruppe[]> {
     // here is Category i should discript what is coming From the nodejs
-    return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}match`)
+    return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}match/${wantToMatchShopId}`)
   }
 
   public getWarrengruppen(): Observable<Warrengruppe[]> {
@@ -53,10 +53,17 @@ export class CategoriesService {
   }
 
 
-  public postLieferant(name: String, connectionId: number): Observable<Warrengruppe> {
+  public postWarrengruppe(name: String, connectionId: number): Observable<void> {
 
-    return this.http.post<Warrengruppe>(`${this.apiServerUrl}add-warrengruppe`, {name : name , connectionId : connectionId})
+    return this.http.post<void>(`${this.apiServerUrl}add-warrengruppe`, {name : name , connectionId : connectionId})
 
   }
 
+  public deleteWarrengruppe(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}delete-warrengruppe/${id}`)
+  }
+
+  public importTree(warrengruppeId: string , connectionId : number) : Observable<void> {
+    return this.http.post<void>(`${this.apiServerUrl}import/${warrengruppeId}/${connectionId}`,{})
+  }
 }
