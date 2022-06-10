@@ -31,6 +31,7 @@ import { ErrorComponent } from './error/error.component';
 import { HomeComponent } from './home/home.component';
 import { VarDirective} from './zulieferer/ng-var.directive';
 import { ContactsContentComponent } from './contact/contacts-content/contacts-content.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -49,26 +50,27 @@ import { ContactsContentComponent } from './contact/contacts-content/contacts-co
     ContactsContentComponent
 
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    LayoutModule,
-    FormsModule,
-    HttpClientModule,
-    NgbModule,
-    BrowserAnimationsModule,
-    MatTreeModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatInputModule,
-    ScrollingModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        LayoutModule,
+        FormsModule,
+        HttpClientModule,
+        NgbModule,
+        BrowserAnimationsModule,
+        MatTreeModule,
+        MatButtonModule,
+        MatIconModule,
+        MatCheckboxModule,
+        MatInputModule,
+        ScrollingModule,
+        MatAutocompleteModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
 
-  ],
+    ],
   providers: [EventEmitterService , {provide: LocationStrategy , useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })

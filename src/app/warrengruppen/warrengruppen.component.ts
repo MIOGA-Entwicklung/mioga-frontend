@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {CategoriesService} from "../match/service";
 import {Warrengruppe} from "../models/Warrengruppen";
 import {Zulieferer} from "../models/Zulieferer";
 import {NgForm} from "@angular/forms";
+import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-warrengruppen',
@@ -11,20 +12,24 @@ import {NgForm} from "@angular/forms";
 })
 export class WarrengruppenComponent implements OnInit {
 
-  warrengruppen: Warrengruppe[] = []
+  warrengruppenList: Warrengruppe[] = []
 
   zulieferList: Zulieferer[]
 
 
   selectedId: 0;
 
-  constructor(private categoriesService: CategoriesService) {
+  deleteWarengruppen: Warrengruppe;
+
+  closeResult = ``;
+
+  constructor(private categoriesService: CategoriesService, private modalService: NgbModal) {
   }
 
 
   public getWarrengruppen(): void {
     this.categoriesService.getWarrengruppen().subscribe((receivedData: Warrengruppe[]) => {
-      this.warrengruppen = receivedData
+      this.warrengruppenList = receivedData
     })
 
   }
@@ -47,24 +52,46 @@ export class WarrengruppenComponent implements OnInit {
     let name = postLieferantForm.value.warrengruppeName
     let id = postLieferantForm.value.connectionId
 
-    this.categoriesService.postWarrengruppe(name, id).subscribe((response : void)  => {
+    this.categoriesService.postWarrengruppe(name, id).subscribe((response: void) => {
       console.log(response)
       this.getWarrengruppen()
+      alert("neu Warengruppe ist hinzugefügt")
     })
 
   }
 
-    postDelete(postDeleteForm: string) {
-      this.categoriesService.deleteWarrengruppe(postDeleteForm).subscribe((response : void)=> {
-          console.log(response)
-          this.getWarrengruppen()
-        })
-    }
-
-  postImportTree(warrentgruppeId : string , connectionId : number) {
-    this.categoriesService.importTree(warrentgruppeId , connectionId).subscribe((response : void)=> {
+  postDeleteWarengruppen(postDeleteForm: string) {
+    this.categoriesService.deleteWarrengruppe(postDeleteForm).subscribe((response: void) => {
       console.log(response)
       this.getWarrengruppen()
     })
+  }
+
+  postImportTree(warrentgruppeId: string, connectionId: number) {
+    this.categoriesService.importTree(warrentgruppeId, connectionId).subscribe((response: void) => {
+      console.log(response)
+      this.getWarrengruppen()
+    })
+  }
+
+  onShowConfirmDelete(deleteWarengruppeModel: any, warrengruppen: any) {
+    console.log(warrengruppen)
+    this.deleteWarengruppen = warrengruppen
+    this.modalService.open(deleteWarengruppeModel, {ariaLabelledBy: 'warengruppeDeleteModelFormHeader'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }
