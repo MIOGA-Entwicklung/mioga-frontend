@@ -99,7 +99,7 @@
                               <button (click)="postImportTree(warrengruppe.id , warrengruppe.zuliefererId)" mat-raised-button color="primary" value="submit"> Import</button>
                           </td>
                           <td>
-                              <button value="submit" (click)="postDelete(warrengruppe.id)" mat-raised-button color="warn"> Delete</button>
+                              <button value="submit" (click)="onShowConfirmDelete(deleteWarengruppeModel, warrengruppe )" mat-raised-button color="warn"> Delete</button>
                           </td>
 
                         </tr>
@@ -122,3 +122,42 @@
 
   </section>
 </div>
+
+
+
+<!-- Show Delete Warrengruppe Question -->
+<section>
+  <ng-template #deleteWarengruppeModel let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="warengruppeDeleteModelFormHeader">Warengruppe entfernen </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p> möchten Sie {{deleteWarengruppen?.name}} mit {{deleteWarengruppen?.id}} entfernen ?</p>
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        (click)="
+        postDeleteWarengruppen(deleteWarengruppen.id);
+        modal.close()"
+        class="btn btn-danger"
+        data-dismiss="modal"> Ja
+      </button>
+
+      <button
+        class="btn btn-primary"
+        type="button" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        Nein
+      </button>
+
+    </div>
+
+  </ng-template>
+</section>
+<!-- / Show Delete Warrengruppe Question -->
