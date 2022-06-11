@@ -19,7 +19,7 @@ export class CategoriesService {
   constructor(private http: HttpClient) {
   }
 
-  public getCategories(wantToMatchShopId : string): Observable<Warrengruppe[]> {
+  public getCategories(wantToMatchShopId: string): Observable<Warrengruppe[]> {
     // here is Category i should discript what is coming From the nodejs
     return this.http.get<Warrengruppe[]>(`${this.apiServerUrl}match/${wantToMatchShopId}`)
   }
@@ -36,26 +36,25 @@ export class CategoriesService {
   // Updating an Existing category
   public updateCategory(miogeCategory: Category, toMatchCategory: Category []): Observable<Category> {
 
-      //UPDATE ALL CATEGORIES CONNECTION  ID
-      toMatchCategory.map(cat => cat.connectionId = miogeCategory.connectionId )
+    //UPDATE ALL CATEGORIES CONNECTION  ID
+    toMatchCategory.map(cat => cat.connectionId = miogeCategory.connectionId)
 
-/*    return this.http.put<Category>(`${this.apiServerUrl}match/update`,
-      {miogaCategory: miogeCategory, toMatchCategory: toMatchCategory})  */
+    /*    return this.http.put<Category>(`${this.apiServerUrl}match/update`,
+          {miogaCategory: miogeCategory, toMatchCategory: toMatchCategory})  */
 
     return this.http.put<Category>(`${this.apiServerUrl}match/update`, toMatchCategory)
 
   }
 
 
-
-  public getZulieferer() : Observable<Zulieferer[]> {
+  public getZulieferer(): Observable<Zulieferer[]> {
     return this.http.get<Zulieferer[]>(`${this.lieferantenUrl}zulieferer/all`)
   }
 
 
   public postWarrengruppe(name: String, connectionId: number): Observable<void> {
 
-    return this.http.post<void>(`${this.apiServerUrl}add-warrengruppe`, {name : name , connectionId : connectionId})
+    return this.http.post<void>(`${this.apiServerUrl}add-warrengruppe`, {name: name, connectionId: connectionId})
 
   }
 
@@ -63,7 +62,21 @@ export class CategoriesService {
     return this.http.delete<void>(`${this.apiServerUrl}delete-warrengruppe/${id}`)
   }
 
-  public importTree(warrengruppeId: string , connectionId : number) : Observable<void> {
-    return this.http.post<void>(`${this.apiServerUrl}import/${warrengruppeId}/${connectionId}`,{})
+  public importTree(warrengruppeId: string, connectionId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiServerUrl}import/${warrengruppeId}/${connectionId}`, {})
+  }
+
+  deleteAllWarengruppen() {
+    return this.http.delete<void>(`${this.apiServerUrl}deleteAllWarrengruppen`)
+  }
+
+
+  requestBackup() {
+    return this.http.get<void>(`${this.apiServerUrl}backup`)
+  }
+
+
+  importAllWarengruppen() {
+    return this.http.get<void>(`${this.apiServerUrl}importAllWarrengruppen`)
   }
 }

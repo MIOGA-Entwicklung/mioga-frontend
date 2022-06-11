@@ -16,7 +16,6 @@ export class WarrengruppenComponent implements OnInit {
 
   zulieferList: Zulieferer[]
 
-
   selectedId: 0;
 
   deleteWarengruppen: Warrengruppe;
@@ -93,5 +92,47 @@ export class WarrengruppenComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  onImportAllWarengruppenBaume(importAllConfirmation: any) {
+    this.modalService.open(importAllConfirmation, {ariaLabelledBy: 'importAllConfirmationFormHeader'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  importALlWarengruppen() {
+    //TODO: Import Warrengruppen Baume at Once
+    console.log(" TODO :")
+  }
+
+  onDeleteAllWarengruppen(deleteAllConfirmationModal: any) {
+    this.modalService.open(deleteAllConfirmationModal, {ariaLabelledBy: 'deleteAllConfirmationFormHeader'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  deleteALlWarengruppen() {
+    this.categoriesService.deleteAllWarengruppen().subscribe((response: void) => {
+      console.log(response)
+      this.getWarrengruppen()
+    })
+  }
+
+  requestBackup() {
+    this.categoriesService.requestBackup().subscribe((response: void) => {
+      console.log(response)
+      alert( " Back Up is Done in : ./database/backup/")
+    })
+  }
+
+  onImportAllWarengruppen() {
+    this.categoriesService.importAllWarengruppen().subscribe((response : void) => {
+      console.log(response)
+      this.getWarrengruppen()
+    })
   }
 }
