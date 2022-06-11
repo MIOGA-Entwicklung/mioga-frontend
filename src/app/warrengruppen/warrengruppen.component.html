@@ -50,14 +50,20 @@
 
                   <a (click)="requestBackup()"  class="btn btn-outline-dark"> Backup </a>
 
-                  <a (click)="onImportAllWarengruppen()" class="btn btn-outline-secondary" style="margin-left: 12px">
+                  <a (click)="onImportAllWarengruppen()" class="btn btn-outline-secondary" style="margin-left: 12px"
+                     matTooltip="Info: Import nur Warengruppen ohne Baum "
+                     matTooltipPosition="above"
+                  >
                     Alle Warengruppen Importieren </a>
 
 
-                  <a (click)="onImportAllWarengruppenBaume(importAllBaumeConfirmationModal)" class="btn btn-outline-success" style="margin-left: 12px">
+                  <a (click)="onImportAllWarengruppenBaume(importAllBaumeConfirmationModal)" class="btn btn-outline-success" style="margin-left: 12px"
+                     matTooltip="Info: Import alle Warengruppen Bäume für die angelegenen Warengruppen "
+                     matTooltipPosition="above">
                     Alle Baume Importieren </a>
 
-                  <a (click)="onDeleteAllWarengruppen(deleteAllConfirmationModal)" class="btn btn-outline-danger" style="margin-left: 12px">
+                  <a (click)="onDeleteAllWarengruppen(deleteAllConfirmationModal)" class="btn btn-outline-danger" style="margin-left: 12px"  matTooltip="Info: alle Warengruppen und deren Bäumen werden entfernen  "
+                     matTooltipPosition="right">
                     Alle Entfernen </a>
 
                   <div class="card-tools">

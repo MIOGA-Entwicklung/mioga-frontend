@@ -32,6 +32,7 @@ import { HomeComponent } from './home/home.component';
 import { VarDirective} from './zulieferer/ng-var.directive';
 import { ContactsContentComponent } from './contact/contacts-content/contacts-content.component';
 import {MatSelectModule} from "@angular/material/select";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import {MatSelectModule} from "@angular/material/select";
         MatCardModule,
         MatProgressSpinnerModule,
         MatSelectModule,
+        MatTooltipModule,
 
     ],
   providers: [EventEmitterService , {provide: LocationStrategy , useClass: HashLocationStrategy}],
