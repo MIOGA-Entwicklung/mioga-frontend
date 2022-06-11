@@ -3,127 +3,153 @@
     <div class="container-fluid">
 
 
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h2 class="card-title">Neue Warengruppe hinzufügen</h2>
-              </div>
-
-              <form #postLieferantForm="ngForm">
-                <div class="card-body">
-
-
-                  <div class="form-group">
-
-                    <label>Warengruppe Name :</label>
-                    <input type="text" name="warrengruppeName" class="form-control" id="warrengruppeName" placeholder="WarenGruppe Name" required ngModel>
-
-                  </div>
-
-                  <div class="form-group">
-                    <label for="selectForm"> Wählen Sie einen Lieferanten aus, um ihn mit der Produktgruppe zu verbinden : </label>
-                    <select class="form-control" name="connectionId" [(ngModel)]="selectedId" id="selectForm">
-                      <option value="{{zulieferer.connectionId}}" *ngFor="let zulieferer of zulieferList"> {{zulieferer.title}} </option>
-                    </select>
-                  </div>
-
-
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary" (click)="postWarrengruppe(postLieferantForm)">Submit</button>
-                </div>
-              </form>
-
-
-
-
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Neue Warengruppe hinzufügen</h2>
             </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <a href="http://localhost:3000/backup" class="btn btn-outline-dark"> Backup </a>
 
-                      <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                          <input type="text" name="table_search" class="form-control float-right"
-                                 placeholder="Search">
+            <form #postLieferantForm="ngForm">
+              <div class="card-body">
 
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                              <i class="fas fa-search"></i>
-                            </button>
-                          </div>
-                        </div>
+
+                <div class="form-group">
+
+                  <label>Warengruppe Name :</label>
+                  <input type="text" name="warrengruppeName" class="form-control" id="warrengruppeName"
+                         placeholder="WarenGruppe Name" required ngModel>
+
+                </div>
+
+                <div class="form-group">
+                  <label for="selectForm"> Wählen Sie einen Lieferanten aus, um ihn mit der Warengruppe zu verbinden
+                    : </label>
+                  <select class="form-control" name="connectionId" [(ngModel)]="selectedId" id="selectForm" required>
+                    <option value="{{zulieferer.connectionId}}"
+                            *ngFor="let zulieferer of zulieferList"> {{zulieferer.title}} </option>
+                  </select>
+                </div>
+
+
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button [disabled]="postLieferantForm.invalid" type="submit" class="btn btn-primary" (click)="postWarrengruppe(postLieferantForm)">Submit
+                </button>
+              </div>
+            </form>
+
+
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+
+
+                  <a (click)="requestBackup()"  class="btn btn-outline-dark"> Backup </a>
+
+                  <a (click)="onImportAllWarengruppen()" class="btn btn-outline-secondary" style="margin-left: 12px"
+                     matTooltip="Info: Import nur Warengruppen ohne Baum "
+                     matTooltipPosition="above"
+                  >
+                    Alle Warengruppen Importieren </a>
+
+
+                  <a (click)="onImportAllWarengruppenBaume(importAllBaumeConfirmationModal)" class="btn btn-outline-success" style="margin-left: 12px"
+                     matTooltip="Info: Import alle Warengruppen Bäume für die angelegenen Warengruppen "
+                     matTooltipPosition="above">
+                    Alle Baume Importieren </a>
+
+                  <a (click)="onDeleteAllWarengruppen(deleteAllConfirmationModal)" class="btn btn-outline-danger" style="margin-left: 12px"  matTooltip="Info: alle Warengruppen und deren Bäumen werden entfernen  "
+                     matTooltipPosition="right">
+                    Alle Entfernen </a>
+
+                  <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="table_search" class="form-control float-right"
+                             placeholder="Search">
+
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
                       </div>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
-                      <table class="table table-hover text-nowrap">
-                        <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Lieferant</th>
-                          <th> Verbindung ID </th>
-                          <th>Status</th>
-                          <th>Baum Ansehen</th>
-                          <th>Match</th>
-                          <th>Import</th>
-                          <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody *ngFor="let warrengruppe of warrengruppenList">
-
-                        <tr>
-                          <td> {{warrengruppe.id}}</td>
-                          <td>{{ warrengruppe.name}}</td>
-                          <td>
-                            {{warrengruppe.zuliefererId}}
-                          </td>
-
-                          <td>
-                            <span *ngIf="warrengruppe.status; else elseBlock"> <b style="color: #3e8e41"> Imported  &#10003; </b> </span>
-                            <ng-template #elseBlock> <b style="color: red">Not Imported &#120; </b></ng-template>
-                          </td>
-
-                          <td>
-                              <button [routerLink]="['/single-tree' , warrengruppe.id]" mat-raised-button color="primary" [disabled]="!warrengruppe.status">Baum</button>
-                          </td>
-
-                          <td>
-                              <button [routerLink]="['/match' , warrengruppe.id]" mat-raised-button color="accent" value="submit" [disabled]="!warrengruppe.status || warrengruppe.name == 'Mioga' "> Match</button>
-                          </td>
-
-                          <td>
-                              <button (click)="postImportTree(warrengruppe.id , warrengruppe.zuliefererId)" mat-raised-button color="primary" value="submit"> Import</button>
-                          </td>
-                          <td>
-                              <button value="submit" (click)="onShowConfirmDelete(deleteWarengruppeModel, warrengruppe )" mat-raised-button color="warn"> Delete</button>
-                          </td>
-
-                        </tr>
-
-                        </tbody>
-                      </table>
-                    </div>
-                    <!-- /.card-body -->
                   </div>
-                  <!-- /.card -->
                 </div>
-              </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-hover text-nowrap">
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Lieferant</th>
+                      <th> Verbindung ID</th>
+                      <th>Status</th>
+                      <th>Baum Ansehen</th>
+                      <th>Match</th>
+                      <th>Import</th>
+                      <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let warrengruppe of warrengruppenList">
 
+                    <tr>
+                      <td> {{warrengruppe.id}}</td>
+                      <td>{{ warrengruppe.name}}</td>
+                      <td>
+                        {{warrengruppe.zuliefererId}}
+                      </td>
+
+                      <td>
+                        <span *ngIf="warrengruppe.status; else elseBlock"> <b
+                          style="color: #3e8e41"> Imported  &#10003; </b> </span>
+                        <ng-template #elseBlock><b style="color: red">Not Imported &#120; </b></ng-template>
+                      </td>
+
+                      <td>
+                        <button [routerLink]="['/single-tree' , warrengruppe.id]" mat-raised-button color="primary"
+                                [disabled]="!warrengruppe.status">Baum
+                        </button>
+                      </td>
+
+                      <td>
+                        <button [routerLink]="['/match' , warrengruppe.id]" mat-raised-button color="accent"
+                                value="submit" [disabled]="!warrengruppe.status || warrengruppe.name == 'Mioga' "> Match
+                        </button>
+                      </td>
+
+                      <td>
+                        <button (click)="postImportTree(warrengruppe.id , warrengruppe.zuliefererId)" mat-raised-button
+                                color="primary" value="submit"> Import
+                        </button>
+                      </td>
+                      <td>
+                        <button value="submit" (click)="onShowConfirmDelete(deleteWarengruppeModel, warrengruppe )"
+                                mat-raised-button color="warn"> Delete
+                        </button>
+                      </td>
+
+                    </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
             </div>
           </div>
+
         </div>
-
-
+      </div>
+    </div>
 
 
   </section>
 </div>
-
 
 
 <!-- Show Delete Warrengruppe Question -->
@@ -148,6 +174,81 @@
         modal.close()"
         class="btn btn-danger"
         data-dismiss="modal"> Ja
+      </button>
+
+      <button
+        class="btn btn-primary"
+        type="button" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        Nein
+      </button>
+
+    </div>
+
+  </ng-template>
+</section>
+<!-- / Show Delete Warrengruppe Question -->
+
+<!-- Show ASK Confirmation Question -->
+<section>
+  <ng-template #importAllBaumeConfirmationModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="importAllConfirmationFormHeader"> Alle Warengruppen Importieren </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p> Möchten Sie <b style="color: red"> alle Warengruppe </b>  Importieren ?</p>
+      <p><b style="color: red"> Diese Anfrage kann einige Minuten dauern ! </b></p>
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        (click)="
+        importALlWarengruppen();
+        modal.close()"
+        class="btn btn-success"
+        data-dismiss="modal"> Ja ausführen
+      </button>
+
+      <button
+        class="btn btn-primary"
+        type="button" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        Nein
+      </button>
+
+    </div>
+
+  </ng-template>
+</section>
+<!-- / Show Delete Warrengruppe Question -->
+
+<!-- Show Delete ALL Warengruppen Confirmation Question -->
+<section>
+  <ng-template #deleteAllConfirmationModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="deleteAllConfirmationFormHeader"> Alle Warengruppen Importieren </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p> Möchten Sie <b style="color: red"> alle Warengruppen Entfernen </b> ?</p>
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        (click)="
+        deleteALlWarengruppen();
+        modal.close()"
+        class="btn btn-danger"
+        data-dismiss="modal"> Ja ausführen
       </button>
 
       <button
