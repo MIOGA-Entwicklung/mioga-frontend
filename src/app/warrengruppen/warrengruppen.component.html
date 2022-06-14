@@ -122,9 +122,10 @@
                       </td>
 
                       <td>
-                        <button (click)="postImportTree(warrengruppe.id , warrengruppe.zuliefererId)" mat-raised-button
+                        <button *ngIf="!isLoading; else loadingBlock"  (click)="postImportTree(warrengruppe.id , warrengruppe.zuliefererId)" mat-raised-button
                                 color="primary" value="submit"> Import
                         </button>
+                          <ng-template #loadingBlock> <button  mat-raised-button color="primary" [class.spinner]="isLoading" [disabled]="isLoading"  ></button></ng-template>
                       </td>
                       <td>
                         <button value="submit" (click)="onShowConfirmDelete(deleteWarengruppeModel, warrengruppe )"

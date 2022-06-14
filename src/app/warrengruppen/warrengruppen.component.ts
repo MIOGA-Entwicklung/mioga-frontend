@@ -12,6 +12,8 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class WarrengruppenComponent implements OnInit {
 
+  isLoading = false;
+
   warrengruppenList: Warrengruppe[] = []
 
   zulieferList: Zulieferer[]
@@ -29,6 +31,7 @@ export class WarrengruppenComponent implements OnInit {
   public getWarrengruppen(): void {
     this.categoriesService.getWarrengruppen().subscribe((receivedData: Warrengruppe[]) => {
       this.warrengruppenList = receivedData
+      this.isLoading = false
     })
 
   }
@@ -44,6 +47,7 @@ export class WarrengruppenComponent implements OnInit {
   ngOnInit(): void {
     this.getWarrengruppen()
     this.getLieferanten()
+    this.isLoading = false
   }
 
   postWarrengruppe(postLieferantForm: NgForm): void {
@@ -67,6 +71,7 @@ export class WarrengruppenComponent implements OnInit {
   }
 
   postImportTree(warrentgruppeId: string, connectionId: number) {
+    this.isLoading = true;
     this.categoriesService.importTree(warrentgruppeId, connectionId).subscribe((response: void) => {
       console.log(response)
       this.getWarrengruppen()
