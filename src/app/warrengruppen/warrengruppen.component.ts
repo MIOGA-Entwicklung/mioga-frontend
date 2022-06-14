@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CategoriesService} from "../match/service";
 import {Warrengruppe} from "../models/Warrengruppen";
 import {Zulieferer} from "../models/Zulieferer";
@@ -12,6 +12,8 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class WarrengruppenComponent implements OnInit {
 
+  isLoading = false;
+
   warrengruppenList: Warrengruppe[] = []
 
   zulieferList: Zulieferer[]
@@ -22,6 +24,8 @@ export class WarrengruppenComponent implements OnInit {
 
   closeResult = ``;
 
+  editWarengruppe : Warrengruppe
+
   constructor(private categoriesService: CategoriesService, private modalService: NgbModal) {
   }
 
@@ -29,6 +33,7 @@ export class WarrengruppenComponent implements OnInit {
   public getWarrengruppen(): void {
     this.categoriesService.getWarrengruppen().subscribe((receivedData: Warrengruppe[]) => {
       this.warrengruppenList = receivedData
+      this.isLoading = false
     })
 
   }
@@ -44,7 +49,11 @@ export class WarrengruppenComponent implements OnInit {
   ngOnInit(): void {
     this.getWarrengruppen()
     this.getLieferanten()
+    this.isLoading = false
   }
+
+
+  /** Post Requests **/
 
   postWarrengruppe(postLieferantForm: NgForm): void {
 
@@ -67,52 +76,16 @@ export class WarrengruppenComponent implements OnInit {
   }
 
   postImportTree(warrentgruppeId: string, connectionId: number) {
+    this.isLoading = true;
     this.categoriesService.importTree(warrentgruppeId, connectionId).subscribe((response: void) => {
       console.log(response)
       this.getWarrengruppen()
     })
   }
 
-  onShowConfirmDelete(deleteWarengruppeModel: any, warrengruppen: any) {
-    console.log(warrengruppen)
-    this.deleteWarengruppen = warrengruppen
-    this.modalService.open(deleteWarengruppeModel, {ariaLabelledBy: 'warengruppeDeleteModelFormHeader'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-  onImportAllWarengruppenBaume(importAllConfirmation: any) {
-    this.modalService.open(importAllConfirmation, {ariaLabelledBy: 'importAllConfirmationFormHeader'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
   importALlWarengruppen() {
     //TODO: Import Warrengruppen Baume at Once
     console.log(" TODO :")
-  }
-
-  onDeleteAllWarengruppen(deleteAllConfirmationModal: any) {
-    this.modalService.open(deleteAllConfirmationModal, {ariaLabelledBy: 'deleteAllConfirmationFormHeader'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
   }
 
   deleteALlWarengruppen() {
@@ -135,4 +108,65 @@ export class WarrengruppenComponent implements OnInit {
       this.getWarrengruppen()
     })
   }
+
+  onUpdateWarengruppe(updateForm : NgForm) {
+
+    this.editWarengruppe.name = updateForm.value.editWGName
+    this.editWarengruppe.zuliefererId = updateForm.value.WGConID
+
+    this.categoriesService.updateWarengruppe(this.editWarengruppe).subscribe(response => {
+      console.log(response)
+    })
+
+  }
+
+
+
+  /** Show Models **/
+
+  onShowConfirmDelete(deleteWarengruppeModel: any, warrengruppen: any) {
+    this.deleteWarengruppen = warrengruppen
+    this.modalService.open(deleteWarengruppeModel, {ariaLabelledBy: 'warengruppeDeleteModelFormHeader'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${WarrengruppenComponent.getDismissReason(reason)}`;
+    });
+  }
+
+  onImportAllWarengruppenBaume(importAllConfirmation: any) {
+    this.modalService.open(importAllConfirmation, {ariaLabelledBy: 'importAllConfirmationFormHeader'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${WarrengruppenComponent.getDismissReason(reason)}`;
+    });
+  }
+
+  onDeleteAllWarengruppen(deleteAllConfirmationModal: any) {
+    this.modalService.open(deleteAllConfirmationModal, {ariaLabelledBy: 'deleteAllConfirmationFormHeader'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${WarrengruppenComponent.getDismissReason(reason)}`;
+    });
+  }
+
+  onEditWarengruppe(editWarengruppeModel: any, warrengruppen: any){
+
+    this.editWarengruppe = warrengruppen
+    this.modalService.open(editWarengruppeModel, {ariaLabelledBy: 'editWarengruppeModalFormHeader'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${WarrengruppenComponent.getDismissReason(reason)}`;
+    });
+  }
+
+   static getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 }

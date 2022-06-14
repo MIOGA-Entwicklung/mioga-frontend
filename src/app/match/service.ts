@@ -79,4 +79,9 @@ export class CategoriesService {
   importAllWarengruppen() {
     return this.http.get<void>(`${this.apiServerUrl}importAllWarrengruppen`)
   }
+
+  updateWarengruppe(editWarengruppe: Warrengruppe) {
+    console.log(editWarengruppe)
+    return this.http.put<{message : string}>(`${this.apiServerUrl}update-warrengruppe`, editWarengruppe)
+  }
 }

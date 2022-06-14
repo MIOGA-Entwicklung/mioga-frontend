@@ -1,11 +1,11 @@
-<div class="content-wrapper" style="margin-top: 2rem">
+<div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
 
 
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card" style="margin-top: 2rem">
             <div class="card-header">
               <h2 class="card-title">Neue Warengruppe hinzufügen</h2>
             </div>
@@ -35,7 +35,8 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button [disabled]="postLieferantForm.invalid" type="submit" class="btn btn-primary" (click)="postWarrengruppe(postLieferantForm)">Submit
+                <button [disabled]="postLieferantForm.invalid" type="submit" class="btn btn-primary"
+                        (click)="postWarrengruppe(postLieferantForm)">Submit
                 </button>
               </div>
             </form>
@@ -48,21 +49,22 @@
                 <div class="card-header">
 
 
-                  <a (click)="requestBackup()"  class="btn btn-outline-dark"> Backup </a>
+                  <a (click)="requestBackup()" class="btn btn-outline-dark"> Backup </a>
 
                   <a (click)="onImportAllWarengruppen()" class="btn btn-outline-secondary" style="margin-left: 12px"
                      matTooltip="Info: Import nur Warengruppen ohne Baum "
-                     matTooltipPosition="above"
-                  >
+                     matTooltipPosition="above">
                     Alle Warengruppen Importieren </a>
 
 
-                  <a (click)="onImportAllWarengruppenBaume(importAllBaumeConfirmationModal)" class="btn btn-outline-success" style="margin-left: 12px"
+                  <a (click)="onImportAllWarengruppenBaume(importAllBaumeConfirmationModal)"
+                     class="btn btn-outline-success" style="margin-left: 12px"
                      matTooltip="Info: Import alle Warengruppen Bäume für die angelegenen Warengruppen "
                      matTooltipPosition="above">
                     Alle Baume Importieren </a>
 
-                  <a (click)="onDeleteAllWarengruppen(deleteAllConfirmationModal)" class="btn btn-outline-danger" style="margin-left: 12px"  matTooltip="Info: alle Warengruppen und deren Bäumen werden entfernen  "
+                  <a (click)="onDeleteAllWarengruppen(deleteAllConfirmationModal)" class="btn btn-outline-danger"
+                     style="margin-left: 12px" matTooltip="Info: alle Warengruppen und deren Bäumen werden entfernen  "
                      matTooltipPosition="right">
                     Alle Entfernen </a>
 
@@ -91,6 +93,7 @@
                       <th>Baum Ansehen</th>
                       <th>Match</th>
                       <th>Import</th>
+                      <th>Bearbeiten</th>
                       <th>Delete</th>
                     </tr>
                     </thead>
@@ -122,10 +125,22 @@
                       </td>
 
                       <td>
-                        <button (click)="postImportTree(warrengruppe.id , warrengruppe.zuliefererId)" mat-raised-button
+                        <button *ngIf="!isLoading; else loadingBlock"
+                                (click)="postImportTree(warrengruppe.id , warrengruppe.zuliefererId)" mat-raised-button
                                 color="primary" value="submit"> Import
                         </button>
+                        <ng-template #loadingBlock>
+                          <button mat-raised-button color="primary" [class.spinner]="isLoading"
+                                  [disabled]="isLoading"></button>
+                        </ng-template>
                       </td>
+
+                      <td>
+                        <button mat-raised-button [disabled]="false"
+                                (click)="onEditWarengruppe(editWarengruppeModal , warrengruppe)"> Bearbeiten
+                        </button>
+                      </td>
+
                       <td>
                         <button value="submit" (click)="onShowConfirmDelete(deleteWarengruppeModel, warrengruppe )"
                                 mat-raised-button color="warn"> Delete
@@ -200,7 +215,7 @@
     </div>
 
     <div class="modal-body">
-      <p> Möchten Sie <b style="color: red"> alle Warengruppe </b>  Importieren ?</p>
+      <p> Möchten Sie <b style="color: red"> alle Warengruppe </b> Importieren ?</p>
       <p><b style="color: red"> Diese Anfrage kann einige Minuten dauern ! </b></p>
     </div>
 
@@ -258,6 +273,87 @@
         Nein
       </button>
 
+    </div>
+
+  </ng-template>
+</section>
+<!-- / Show Delete Warrengruppe Question -->
+
+
+<!-- Show Edit Warengruppen Model -->
+<section>
+  <ng-template #editWarengruppeModal let-modal>
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="editWarengruppeModalFormHeader"><b> {{editWarengruppe.name}} Bearbeiten </b></h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+
+      <form #updateWarengruppeForm="ngForm">
+
+        <input ngModel name="id" hidden value="{{editWarengruppe?.id}}">
+
+        <div class="form-group">
+          <label for="editWGName"> WarenGruppe Name</label>
+          <input
+            class="form-control"
+            ngModel
+            id="editWGName"
+            matInput
+            name="editWGName"
+            type="text"
+            required
+            editWGName
+            #editNameInput="ngModel"
+            placeholder="{{editWarengruppe?.name}}"
+          />
+
+          <p *ngIf="editNameInput.touched && editNameInput.invalid" style="color: red"><b>Please enter a valid Name</b>
+          </p>
+
+        </div>
+
+
+        <div class="form-group">
+          <label for="editWGConID"> WarenGruppe Connection ID</label>
+          <input
+            class="form-control"
+            ngModel
+            id="editWGConID"
+            matInput
+            name="WGConID"
+            type="number"
+            required
+            WGConID
+            #editWGInput="ngModel"
+            placeholder="{{editWarengruppe?.zuliefererId}}"
+          />
+
+          <p *ngIf=" editWGInput.touched && editWGInput.invalid" style="color: red"><b>Please Enter ID</b></p>
+        </div>
+
+      </form>
+
+
+    </div>
+
+    <div class="modal-footer">
+      <button
+        (click)="onUpdateWarengruppe(updateWarengruppeForm); modal.close()" class="btn btn-success"
+        data-dismiss="modal"> update {{editWarengruppe.name}}
+      </button>
+
+      <button
+        class="btn btn-primary"
+        type="button" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        Nein
+      </button>
     </div>
 
   </ng-template>
