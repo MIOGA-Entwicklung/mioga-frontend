@@ -77,6 +77,7 @@ export class TreeComponent implements OnInit {
 
     this.eventEmitterService.subsVar = this.eventEmitterService.invokeFirstComponentFunction.subscribe(() => {
       this.onSelect();
+      this.onUnselectALl()
     });
 
   }
@@ -236,6 +237,7 @@ export class TreeComponent implements OnInit {
   onUnselectALl() {
     this.checklistSelection.deselect(...this.checklistSelection.selected)
   }
+
 
 }
 

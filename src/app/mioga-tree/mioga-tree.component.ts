@@ -67,6 +67,7 @@ export class MiogaTreeComponent implements OnInit {
     this.getCategories()
     this.eventEmitterService.subsVar = this.eventEmitterService.invokeFirstComponentFunction.subscribe(() => {
       this.onSelect();
+      this.onAfterMatch()
     });
   }
 
@@ -230,4 +231,8 @@ export class MiogaTreeComponent implements OnInit {
     }
   }
 
+  onAfterMatch(){
+    this.checklistSelection.deselect(...this.checklistSelection.selected)
+    this.allowCheck=true
+  }
 }

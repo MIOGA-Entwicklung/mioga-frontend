@@ -34,15 +34,12 @@ export class CategoriesService {
 
 
   // Updating an Existing category
-  public updateCategory(miogeCategory: Category, toMatchCategory: Category []): Observable<Category> {
+  public updateCategory(miogeCategory: Category, toMatchCategory: Category []){
 
     //UPDATE ALL CATEGORIES CONNECTION  ID
     toMatchCategory.map(cat => cat.connectionId = miogeCategory.connectionId)
 
-    /*    return this.http.put<Category>(`${this.apiServerUrl}match/update`,
-          {miogaCategory: miogeCategory, toMatchCategory: toMatchCategory})  */
-
-    return this.http.put<Category>(`${this.apiServerUrl}match/update`, toMatchCategory)
+    return this.http.put<{ message: string , categories: Category[]} >(`${this.apiServerUrl}match/update`, toMatchCategory)
 
   }
 
@@ -82,6 +79,6 @@ export class CategoriesService {
 
   updateWarengruppe(editWarengruppe: Warrengruppe) {
     console.log(editWarengruppe)
-    return this.http.put<{message : string}>(`${this.apiServerUrl}update-warrengruppe`, editWarengruppe)
+    return this.http.put<{ message: string }>(`${this.apiServerUrl}update-warrengruppe`, editWarengruppe)
   }
 }
