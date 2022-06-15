@@ -77,6 +77,7 @@ export class MatchComponent implements OnInit {
 
   match(){
     this.eventEmitterService.onMatchTreeButtonClick();
+
     this.categoriesService.updateCategory(this.selectedMiogaCategory , this.selectedToMatchCategoryList).subscribe(data => {
       console.log(data)
     })

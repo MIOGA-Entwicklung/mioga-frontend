@@ -2,8 +2,7 @@
 
   <h2> {{warengruppe.name}} 🌳
     <button class="btn btn-primary" (click)="filterCategories()"> Filter</button>
-    <button class="btn btn-danger" style="margin-left: 5px" (click)="onUnselectALl()">
-      Unselect All
+    <button class="btn btn-danger" style="margin-left: 5px" (click)="onChangeSelection()"> Change Selection
     </button>
   </h2>
 
@@ -20,13 +19,11 @@
       <!-- Not Expandable Node -->
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
 
-        <!-- Others Not Expandable Node -->
-
-        <mat-checkbox class="checklist-leaf-node"
-                      [checked]="checklistSelection.isSelected(node)"
-                      (change)="todoLeafItemSelectionToggle(node)">{{node.name}} {{node.connectionId}}
-        </mat-checkbox>
-
+          <mat-checkbox class="checklist-leaf-node"
+                        [disabled]="!allowCheck"
+                        [checked]="checklistSelection.isSelected(node)"
+                        (change)="todoLeafItemSelectionToggle(node)">{{node.name}} {{node.connectionId}}
+          </mat-checkbox>
 
       </mat-tree-node>
 
@@ -41,19 +38,11 @@
           </mat-icon>
         </button>
 
-        <!-- Others Expandebale Node -->
 
-        <mat-checkbox
-          [checked]="descendantsAllSelected(node) "
-          [indeterminate]="descendantsPartiallySelected(node)"
-          (change)="todoItemSelectionToggle(node)"> {{node.name}} {{node.connectionId}}
-        </mat-checkbox>
-
-        <mat-checkbox style="margin-left: 5px;" class="checklist-leaf-node"
-                      [checked]="checklistSelection.isSelected(node)"
-                      (change)="todoLeafItemSelectionToggle(node)">
-        </mat-checkbox>
-
+          <mat-checkbox [disabled]="!allowCheck" style="margin-left: 5px;" class="checklist-leaf-node"
+                        [checked]="checklistSelection.isSelected(node)"
+                        (change)="todoLeafItemSelectionToggle(node)"> {{node.name}}{{node.connectionId}}
+          </mat-checkbox>
 
       </mat-tree-node>
 
