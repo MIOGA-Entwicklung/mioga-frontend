@@ -39,7 +39,7 @@ export class CategoriesService {
     //UPDATE ALL CATEGORIES CONNECTION  ID
     toMatchCategory.map(cat => cat.connectionId = miogeCategory.connectionId)
 
-    return this.http.put<{ message: string , categories: Category[]} >(`${this.apiServerUrl}match/update`, toMatchCategory)
+    return this.http.put<{ message: string} >(`${this.apiServerUrl}match/update`, toMatchCategory)
 
   }
 
