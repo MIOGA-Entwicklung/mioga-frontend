@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Category} from "../models/Category";
+import {Warrengruppe} from "../models/Warrengruppen";
+import {EventEmitterService} from "../event-emitter.service";
+import {SelectionModel} from "@angular/cdk/collections";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {FlatTreeControl} from "@angular/cdk/tree";
-import {SelectionModel} from "@angular/cdk/collections";
-import {EventEmitterService} from "../event-emitter.service";
-import {Warrengruppe} from "../models/Warrengruppen";
 
 
 interface FlatNode {
@@ -17,12 +17,11 @@ interface FlatNode {
 
 
 @Component({
-  selector: 'app-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss']
+  selector: 'app-mioga-tree',
+  templateUrl: './mioga-tree.component.html',
+  styleUrls: ['./mioga-tree.component.scss']
 })
-
-export class TreeComponent implements OnInit {
+export class MiogaTreeComponent implements OnInit {
 
 
   @Input() @Output()
@@ -35,6 +34,8 @@ export class TreeComponent implements OnInit {
   @Output()
   treeSelected = new EventEmitter();
 
+
+  allowCheck = true;
 
   constructor(private eventEmitterService: EventEmitterService) {
   }
@@ -51,15 +52,6 @@ export class TreeComponent implements OnInit {
   checklistSelection = new SelectionModel<FlatNode>(true /* multiple */);
 
 
-  public sortCategories(list) {
-    for (let cat of list) {
-      if (cat.children.length > 0) {
-        cat.children.sort((a, b) => (b['children'] || []).length - (a['children'] || []).length);
-        this.sortCategories(cat.children)
-      } else list.sort((a, b) => (b['children'] || []).length - (a['children'] || []).length);
-    }
-  }
-
 
   public filterCategories() {
 
@@ -72,14 +64,11 @@ export class TreeComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.getCategories()
-
     this.eventEmitterService.subsVar = this.eventEmitterService.invokeFirstComponentFunction.subscribe(() => {
       this.onSelect();
-      this.onUnselectALl()
+      this.onAfterMatch()
     });
-
   }
 
 
@@ -170,9 +159,9 @@ export class TreeComponent implements OnInit {
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: FlatNode): void {
-
     this.checkAllParentsSelection(node);
     this.checklistSelection.toggle(node);
+    this.allowCheck = false;
   }
 
   /* Checks all the parents when a leaf node is selected/unselected */
@@ -234,10 +223,16 @@ export class TreeComponent implements OnInit {
   }
 
 
-  onUnselectALl() {
-    this.checklistSelection.deselect(...this.checklistSelection.selected)
+  onChangeSelection() {
+    console.log(this.checklistSelection.selected)
+    if (!this.allowCheck) {
+      this.allowCheck = true
+      this.checklistSelection.deselect(...this.checklistSelection.selected)
+    }
   }
 
-
+  onAfterMatch(){
+    this.checklistSelection.deselect(...this.checklistSelection.selected)
+    this.allowCheck=true
+  }
 }
-

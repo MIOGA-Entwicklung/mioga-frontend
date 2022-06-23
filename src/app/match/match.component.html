@@ -5,7 +5,9 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Warrengruppen Match <button class="btn btn-success" (click)="match()"> Match</button> </h1>
+          <h1>Warrengruppen Match
+            <button class="btn btn-success" (click)="match(confirmUpdateModel)"> Match</button>
+          </h1>
         </div>
       </div>
     </div>
@@ -17,11 +19,10 @@
 
     <div class="container-fluid">
 
-      <mat-card class="loading" *ngIf="loadingSymbol">
+      <span class="loading" *ngIf="loadingSymbol">
         <mat-spinner></mat-spinner>
-        <h1 style="margin-top: 11rem"> 🕑 Bitte warten Sie einige Sekunden. Die Bäume werden geladen 🕑  </h1>
-
-      </mat-card>
+        <h1 style="margin-top: 11rem"> 🕑 Bitte warten Sie einige Sekunden. Die Bäume werden geladen 🕑 </h1>
+      </span>
 
       <div *ngIf="!loadingSymbol">
 
@@ -41,13 +42,12 @@
 
               <div>
 
-                <app-tree
-                  [categoriesList]="IncomingWarrengruppenList[0].categories"
-                  [treeName]="IncomingWarrengruppenList[0].name"
+                <app-mioga-tree [categoriesList]="IncomingWarrengruppenList[0].categories"
+                                [warengruppe]="IncomingWarrengruppenList[0]"
+                                (treeSelected)="getEventLeftTree($event)">
+                </app-mioga-tree>
 
-                  (treeSelected)="getEventLeftTree($event)">
 
-                </app-tree>
               </div>
 
 
@@ -68,7 +68,7 @@
 
                 <app-tree
                   [categoriesList]="IncomingWarrengruppenList[1].categories"
-                  [treeName]="IncomingWarrengruppenList[1].name"
+                  [warengruppe]="IncomingWarrengruppenList[1]"
                   (treeSelected)="getEventRightTree($event)"></app-tree>
 
               </div>
@@ -87,3 +87,32 @@
   <!-- /.content -->
 
 </div>
+
+
+<!-- Show Confirmation of Update Warengrupen Connection ID  -->
+<section>
+  <ng-template #confirmUpdateModel let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="importAllConfirmationFormHeader"> Message From The Server</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+     <p> {{message}} </p>
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        class="btn btn-success"
+        type="button" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        Okay !
+      </button>
+
+    </div>
+  </ng-template>
+</section>
+<!-- / Show Delete Warrengruppe Question -->

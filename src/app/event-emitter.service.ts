@@ -7,6 +7,7 @@ import {Subscription} from "rxjs";
 export class EventEmitterService {
 
   invokeFirstComponentFunction = new EventEmitter();
+
   subsVar: Subscription;
 
   selected = ''

@@ -33,6 +33,7 @@ import { VarDirective} from './zulieferer/ng-var.directive';
 import { ContactsContentComponent } from './contact/contacts-content/contacts-content.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { MiogaTreeComponent } from './mioga-tree/mioga-tree.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     ErrorComponent,
     HomeComponent,
     VarDirective,
-    ContactsContentComponent
+    ContactsContentComponent,
+    MiogaTreeComponent
 
   ],
     imports: [

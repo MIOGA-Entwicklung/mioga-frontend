@@ -29,7 +29,6 @@ export class WarrengruppenComponent implements OnInit {
   constructor(private categoriesService: CategoriesService, private modalService: NgbModal) {
   }
 
-
   public getWarrengruppen(): void {
     this.categoriesService.getWarrengruppen().subscribe((receivedData: Warrengruppe[]) => {
       this.warrengruppenList = receivedData
