@@ -1,6 +1,13 @@
-# AngularCategoriesManagment
+# Mioga Microservice Frontend 
+
+
+
+![image description](./src/docs/imgs/MicroserviceOverview.svg)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.0.
+
+## Angular Frontend General Overview
 
 
 ![Alt text](./src/docs/imgs/general-layout.svg)
