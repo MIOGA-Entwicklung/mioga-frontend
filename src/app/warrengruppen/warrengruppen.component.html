@@ -120,7 +120,9 @@
 
                       <td>
                         <button [routerLink]="['/match' , warrengruppe.id]" mat-raised-button color="accent"
-                                value="submit" [disabled]="!warrengruppe.status || warrengruppe.name == 'Mioga' "> Match
+                                value="submit"
+                                [disabled]="!warrengruppe.status || warrengruppe.name == 'Mioga' || !miogaImportedStatus ">
+                          Match
                         </button>
                       </td>
 
