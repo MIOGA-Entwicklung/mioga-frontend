@@ -97,7 +97,7 @@ export class MatchComponent implements OnInit {
 
   addCompleteNodeToMioga(){
     this.eventEmitterService.onMatchTreeButtonClick();
-    this.categoriesService.postNewNodeToMioga(this.selectedMiogaCategory.id , this.selectedToMatchCategoryList).subscribe(data => {
+    this.categoriesService.postNewNodeToMioga(this.selectedMiogaCategory , this.selectedToMatchCategoryList).subscribe(data => {
       console.log(this.selectedToMatchCategoryList)
       this.message = data.message
     })
