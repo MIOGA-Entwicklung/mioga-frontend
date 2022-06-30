@@ -87,13 +87,22 @@ export class MatchComponent implements OnInit {
 
   }
 
-
   confirmUpdateModel(confirmUpdateModel) {
     this.modalService.open(confirmUpdateModel, {ariaLabelledBy: 'confirmUpdateModelHeader'}).result.then((result) => {
     }, (reason) => {
       this.closeResult = `Dismissed ${MatchComponent.getDismissReason(reason)}`;
     });
   }
+
+
+  addCompleteNodeToMioga(){
+    this.eventEmitterService.onMatchTreeButtonClick();
+    this.categoriesService.postNewNodeToMioga(this.selectedMiogaCategory.id , this.selectedToMatchCategoryList).subscribe(data => {
+      console.log(this.selectedToMatchCategoryList)
+      this.message = data.message
+    })
+  }
+
 
   static getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
