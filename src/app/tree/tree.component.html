@@ -1,11 +1,15 @@
 <div class="tree-demo-container">
 
-  <h2> {{warengruppe.name}} 🌳
+  <h2> {{warengruppe.name}} 🌳 </h2>
+
+  <div  style="margin-bottom: 10px">
     <button class="btn btn-primary" (click)="filterCategories()"> Filter</button>
     <button class="btn btn-danger" style="margin-left: 5px" (click)="onUnselectALl()">
       Unselect All
     </button>
-  </h2>
+    <button class="btn btn-outline-secondary"  (click)="tree.treeControl.collapseAll()"  style="margin-left: 5px">Collapse All</button>
+    <button class="btn btn-outline-success" (click)="tree.treeControl.expandAll()" style="margin-left: 5px"> Expand All</button>
+  </div>
 
   <app-autocomplete-auto-active [categoryList]="categoriesList"></app-autocomplete-auto-active>
 
@@ -13,7 +17,7 @@
   <div class="card-body table-responsive p-0" style="height: 600px;">
 
 
-    <mat-tree class="mat-elevation-z4 table table-head-fixed text-nowrap" [dataSource]="flatDataSource"
+    <mat-tree #tree class="mat-elevation-z4 table table-head-fixed text-nowrap" [dataSource]="flatDataSource"
               [treeControl]="flatTreeControl">
 
 

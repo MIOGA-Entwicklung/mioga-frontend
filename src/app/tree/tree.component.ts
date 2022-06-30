@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Category} from "../models/Category";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {FlatTreeControl} from "@angular/cdk/tree";
@@ -34,6 +34,12 @@ export class TreeComponent implements OnInit {
 
   @Output()
   treeSelected = new EventEmitter();
+
+  @ViewChild('tree') tree;
+
+  ngAfterViewInit() {
+    this.tree.treeControl.expandAll();
+  }
 
 
   constructor(private eventEmitterService: EventEmitterService) {

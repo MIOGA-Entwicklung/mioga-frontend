@@ -5,12 +5,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Warrengruppen Match
-            <button class="btn btn-success" (click)="match(confirmUpdateModel)"> Match</button>
-
-            <button class="btn btn-success" (click)="addCompleteNodeToMioga()"> Add this Node to Mioga</button>
-          </h1>
+          <h1>Warrengruppen Match </h1>
         </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-success" (click)="match(confirmUpdateModel)" > Match</button>
+
+        <button class="btn btn-success" (click)="addCompleteNodeToMioga()" style="margin-left: 5px" > Create New Node </button>
       </div>
     </div>
   </section>
@@ -102,7 +103,7 @@
     </div>
 
     <div class="modal-body">
-     <p> {{message}} </p>
+      <p> {{message}} </p>
     </div>
 
     <div class="modal-footer">
