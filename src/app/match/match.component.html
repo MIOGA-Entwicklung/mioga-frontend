@@ -45,8 +45,8 @@
 
               <div>
 
-                <app-mioga-tree [categoriesList]="IncomingWarrengruppenList[0].categories"
-                                [warengruppe]="IncomingWarrengruppenList[0]"
+                <app-mioga-tree [categoriesList]="miogaCategoryList"
+                                [warengruppe]="miogaObject"
                                 (treeSelected)="getEventLeftTree($event)">
                 </app-mioga-tree>
 
@@ -70,8 +70,8 @@
               <div>
 
                 <app-tree
-                  [categoriesList]="IncomingWarrengruppenList[1].categories"
-                  [warengruppe]="IncomingWarrengruppenList[1]"
+                  [categoriesList]="categoriesToMatch"
+                  [warengruppe]="objectToMatch"
                   (treeSelected)="getEventRightTree($event)"></app-tree>
 
               </div>

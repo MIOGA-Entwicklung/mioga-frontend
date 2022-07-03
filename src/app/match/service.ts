@@ -87,4 +87,7 @@ export class CategoriesService {
     return this.http.post<{ message: string }>(`${this.apiServerUrl}post-new-node` , {parentNode : parentNode , postedNodeList : postedNode } )
   }
 
+  getMioga() {
+    return this.http.get<Category[]>(`${this.apiServerUrl}getMiogaCategories`)
+  }
 }
