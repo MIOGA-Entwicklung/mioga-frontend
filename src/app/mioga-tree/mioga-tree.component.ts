@@ -37,7 +37,7 @@ export class MiogaTreeComponent implements OnInit {
   @ViewChild('tree') tree;
 
   ngAfterViewInit() {
-    this.tree.treeControl.expandAll();
+    this.tree.treeControl.collapseAll();
   }
 
   allowCheck = true;
@@ -74,6 +74,10 @@ export class MiogaTreeComponent implements OnInit {
       this.onSelect();
       this.onAfterMatch()
     });
+
+    this.eventEmitterService.subsVar = this.eventEmitterService.updateMioga.subscribe(()=>{
+      this.getCategories()
+    })
   }
 
 

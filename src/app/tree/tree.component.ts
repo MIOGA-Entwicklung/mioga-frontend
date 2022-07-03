@@ -38,7 +38,7 @@ export class TreeComponent implements OnInit {
   @ViewChild('tree') tree;
 
   ngAfterViewInit() {
-    this.tree.treeControl.expandAll();
+    this.tree.treeControl.collapseAll();
   }
 
 
