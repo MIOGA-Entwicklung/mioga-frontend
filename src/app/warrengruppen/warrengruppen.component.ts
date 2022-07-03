@@ -131,6 +131,9 @@ export class WarrengruppenComponent implements OnInit {
   }
 
 
+
+
+
   /** Show Models **/
 
   onShowConfirmDelete(deleteWarengruppeModel: any, warrengruppen: any) {

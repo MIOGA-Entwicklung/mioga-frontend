@@ -7,7 +7,6 @@ import {ActivatedRoute} from "@angular/router";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 
-
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
@@ -15,36 +14,59 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class MatchComponent implements OnInit {
 
+
   @Output()
-  IncomingWarrengruppenList: Warrengruppe [] = []
+  miogaObject : Warrengruppe
+
+  @Output()
+  objectToMatch : Warrengruppe
+
+  @Output()
+  miogaCategoryList: Category [] = []
+
+  @Output()
+  categoriesToMatch : Category [] = []
+
 
   toMatchSelectedList = []
 
   loadingSymbol = false
 
-  selectedMiogaCategory : Category
+  selectedMiogaCategory: Category
 
-  selectedToMatchCategoryList : Category []
+  selectedToMatchCategoryList: Category []
 
   private wantToMatchShopId: string;
 
-  closeResult=''
+  closeResult = ''
 
-  message : string
+  message: string
 
-  constructor(private categoriesService: CategoriesService , private eventEmitterService: EventEmitterService ,private route: ActivatedRoute ,private modalService: NgbModal ) {
+  constructor(private categoriesService: CategoriesService, private eventEmitterService: EventEmitterService, private route: ActivatedRoute, private modalService: NgbModal) {
   }
 
 
-  public getCategories(wantToMatchShopId : string): void {
+  public getMiogaCategories():void{
+    this.loadingSymbol = true
+    this.categoriesService.getMioga().subscribe((receivedData : Category [])=> {
+      this.miogaCategoryList = receivedData
+      this.loadingSymbol = false
+    })
+  }
 
-      this.loadingSymbol = true
+  public getCategories(wantToMatchShopId: string): void {
 
-      this.categoriesService.getCategories(wantToMatchShopId).subscribe((receivedData:Warrengruppe[]) => {
+    this.loadingSymbol = true
 
-      this.IncomingWarrengruppenList = receivedData
+    this.categoriesService.getCategories(wantToMatchShopId).subscribe((receivedData: Warrengruppe[]) => {
 
-        this.loadingSymbol = false
+      this.miogaObject = receivedData[0]
+      this.miogaCategoryList = receivedData[0].categories
+
+      this.objectToMatch = receivedData[1]
+      this.categoriesToMatch = receivedData[1].categories
+
+      this.loadingSymbol = false
 
     })
 
@@ -61,32 +83,31 @@ export class MatchComponent implements OnInit {
   }
 
 
-  getEventLeftTree(event: any){
+  getEventLeftTree(event: any) {
 
     console.log("FROM Mioga Tree")
 
-    if(event.length === 0 || !(event.length === 1) ) return
+    if (event.length === 0 || !(event.length === 1)) return
 
     this.selectedMiogaCategory = event[0]
 
     console.log(this.selectedMiogaCategory)
   }
 
-  getEventRightTree(event: any){
+  getEventRightTree(event: any) {
     console.log("FROM Right Tree")
     this.selectedToMatchCategoryList = event
     console.log(this.selectedToMatchCategoryList)
   }
 
-  match(confirmUpdateModel: any){
+  match(confirmUpdateModel: any) {
     this.eventEmitterService.onMatchTreeButtonClick();
-    this.categoriesService.updateCategory(this.selectedMiogaCategory , this.selectedToMatchCategoryList).subscribe(data => {
+    this.categoriesService.updateCategory(this.selectedMiogaCategory, this.selectedToMatchCategoryList).subscribe(data => {
       this.message = data.message
       this.confirmUpdateModel(confirmUpdateModel)
     })
 
   }
-
 
   confirmUpdateModel(confirmUpdateModel) {
     this.modalService.open(confirmUpdateModel, {ariaLabelledBy: 'confirmUpdateModelHeader'}).result.then((result) => {
@@ -94,6 +115,16 @@ export class MatchComponent implements OnInit {
       this.closeResult = `Dismissed ${MatchComponent.getDismissReason(reason)}`;
     });
   }
+
+
+  addCompleteNodeToMioga() {
+    this.eventEmitterService.onMatchTreeButtonClick();
+    this.categoriesService.postNewNodeToMioga(this.selectedMiogaCategory, this.selectedToMatchCategoryList).subscribe(data => {
+      this.getMiogaCategories()
+      this.message = data.message
+    })
+  }
+
 
   static getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

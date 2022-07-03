@@ -5,10 +5,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Warrengruppen Match
-            <button class="btn btn-success" (click)="match(confirmUpdateModel)"> Match</button>
-          </h1>
+          <h1>Warrengruppen Match </h1>
         </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-success" (click)="match(confirmUpdateModel)" > Match</button>
+
+        <button class="btn btn-success" (click)="addCompleteNodeToMioga()" style="margin-left: 5px" > Create New Node </button>
       </div>
     </div>
   </section>
@@ -42,8 +45,8 @@
 
               <div>
 
-                <app-mioga-tree [categoriesList]="IncomingWarrengruppenList[0].categories"
-                                [warengruppe]="IncomingWarrengruppenList[0]"
+                <app-mioga-tree [categoriesList]="miogaCategoryList"
+                                [warengruppe]="miogaObject"
                                 (treeSelected)="getEventLeftTree($event)">
                 </app-mioga-tree>
 
@@ -67,8 +70,8 @@
               <div>
 
                 <app-tree
-                  [categoriesList]="IncomingWarrengruppenList[1].categories"
-                  [warengruppe]="IncomingWarrengruppenList[1]"
+                  [categoriesList]="categoriesToMatch"
+                  [warengruppe]="objectToMatch"
                   (treeSelected)="getEventRightTree($event)"></app-tree>
 
               </div>
@@ -100,7 +103,7 @@
     </div>
 
     <div class="modal-body">
-     <p> {{message}} </p>
+      <p> {{message}} </p>
     </div>
 
     <div class="modal-footer">

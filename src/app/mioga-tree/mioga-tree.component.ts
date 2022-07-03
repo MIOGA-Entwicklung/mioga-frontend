@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Category} from "../models/Category";
 import {Warrengruppe} from "../models/Warrengruppen";
 import {EventEmitterService} from "../event-emitter.service";
@@ -34,6 +34,11 @@ export class MiogaTreeComponent implements OnInit {
   @Output()
   treeSelected = new EventEmitter();
 
+  @ViewChild('tree') tree;
+
+  ngAfterViewInit() {
+    this.tree.treeControl.collapseAll();
+  }
 
   allowCheck = true;
 
@@ -69,6 +74,10 @@ export class MiogaTreeComponent implements OnInit {
       this.onSelect();
       this.onAfterMatch()
     });
+
+    this.eventEmitterService.subsVar = this.eventEmitterService.updateMioga.subscribe(()=>{
+      this.getCategories()
+    })
   }
 
 

@@ -8,6 +8,9 @@ export class EventEmitterService {
 
   invokeFirstComponentFunction = new EventEmitter();
 
+  updateMioga = new EventEmitter()
+
+
   subsVar: Subscription;
 
   selected = ''
@@ -16,5 +19,10 @@ export class EventEmitterService {
 
   onMatchTreeButtonClick() {
     this.invokeFirstComponentFunction.emit();
+  }
+
+
+  onUpdateMioga(){
+    this.updateMioga.emit()
   }
 }

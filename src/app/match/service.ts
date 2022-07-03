@@ -78,7 +78,16 @@ export class CategoriesService {
   }
 
   updateWarengruppe(editWarengruppe: Warrengruppe) {
-    console.log(editWarengruppe)
     return this.http.put<{ message: string }>(`${this.apiServerUrl}update-warrengruppe`, editWarengruppe)
+  }
+
+
+
+  postNewNodeToMioga(parentNode : Category , postedNode : Category[] ){
+    return this.http.post<{ message: string }>(`${this.apiServerUrl}post-new-node` , {parentNode : parentNode , postedNodeList : postedNode } )
+  }
+
+  getMioga() {
+    return this.http.get<Category[]>(`${this.apiServerUrl}getMiogaCategories`)
   }
 }
