@@ -30,7 +30,6 @@ export class MiogaTreeComponent implements OnInit {
   @Input()
   public warengruppe: Warrengruppe
 
-
   @Output()
   treeSelected = new EventEmitter();
 

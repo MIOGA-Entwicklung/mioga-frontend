@@ -1,0 +1,119 @@
+<div class="content-wrapper">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Warrengruppen Match </h1>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-success" (click)="moveNode()" style="margin-left: 5px" > Move Node </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+
+    <div class="container-fluid">
+
+      <span class="loading" *ngIf="loadingSymbol">
+        <mat-spinner></mat-spinner>
+        <h1 style="margin-top: 11rem"> 🕑 Bitte warten Sie einige Sekunden. Die Bäume werden geladen 🕑 </h1>
+      </span>
+
+      <div *ngIf="!loadingSymbol">
+
+
+        <div class="row">
+
+          <!-- left Tree -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"> Mioga Shop </h3>
+              </div>
+              <!-- /.card-header -->
+
+              <!-- Inject Mioga Tree -->
+
+              <div>
+
+                <app-mioga-tree [categoriesList]="miogaCategoryList"
+                                [warengruppe]="miogaWarrengruppe"
+                                (treeSelected)="getEventLeftTree($event)">
+                </app-mioga-tree>
+
+
+              </div>
+
+
+            </div>
+          </div>
+
+          <!-------------------------------------------------------------------------------------- -->
+
+          <!-- right Tree -->
+          <div class="col-md-6">
+            <!-- Form Element sizes -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title"> Group To Match</h3>
+              </div>
+
+              <div>
+
+                <app-mioga-tree [categoriesList]="miogaCategoryList"
+                                [warengruppe]="miogaWarrengruppe"
+                                (treeSelected)="getEventRightTree($event)">
+                </app-mioga-tree>
+
+              </div>
+
+            </div>
+          </div>
+
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+
+      </div>
+    </div>
+
+  </section>
+  <!-- /.content -->
+
+</div>
+
+
+<!-- Show Confirmation of Update Warengrupen Connection ID  -->
+<section>
+  <ng-template #confirmUpdateModel let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="importAllConfirmationFormHeader"> Message From The Server</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p> {{message}} </p>
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        class="btn btn-success"
+        type="button" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        Okay !
+      </button>
+
+    </div>
+  </ng-template>
+</section>
+<!-- / Show Delete Warrengruppe Question -->
