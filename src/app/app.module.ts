@@ -34,6 +34,7 @@ import { ContactsContentComponent } from './contact/contacts-content/contacts-co
 import {MatSelectModule} from "@angular/material/select";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { MiogaTreeComponent } from './mioga-tree/mioga-tree.component';
+import { MoveComponent } from './move/move.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { MiogaTreeComponent } from './mioga-tree/mioga-tree.component';
     HomeComponent,
     VarDirective,
     ContactsContentComponent,
-    MiogaTreeComponent
+    MiogaTreeComponent,
+    MoveComponent
 
   ],
     imports: [

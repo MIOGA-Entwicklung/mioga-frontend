@@ -84,7 +84,11 @@ export class CategoriesService {
 
 
   postNewNodeToMioga(parentNode : Category , postedNode : Category[] ){
-    return this.http.post<{ message: string }>(`${this.apiServerUrl}post-new-node` , {parentNode : parentNode , postedNodeList : postedNode } )
+    return this.http.post<{ message: string }>(`${this.apiServerUrl}post-new-node` , {parentNode : parentNode , postedNodeList : postedNode , allowDelete : false } )
+  }
+
+  moveNodeInMioga(parentNode : Category , postedNode : Category[] ){
+    return this.http.post<{ message: string }>(`${this.apiServerUrl}post-new-node` , {parentNode : parentNode , postedNodeList : postedNode , allowDelete : true } )
   }
 
   getMioga() {
