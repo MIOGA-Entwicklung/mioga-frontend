@@ -41,6 +41,11 @@ export class MoveComponent implements OnInit {
 
   moveNode() {
     this.eventEmitterService.onMatchTreeButtonClick();
+    this.loadingSymbol = true
+    this.categoriesService.moveNodeInMioga(this.selectedMiogaCategory , this.selectedToMoveCategoryList).subscribe(()=>{
+      this.getMiogaCategories()
+    })
+
   }
 
   getEventLeftTree(event: any) {
