@@ -16,20 +16,25 @@
 
   <div class="card-body table-responsive p-0" style="height: 600px;">
 
+    <mat-form-field>
+      <input matInput placeholder="Search" [(ngModel)] ="searchString">
+    </mat-form-field>
 
     <mat-tree #tree class="mat-elevation-z4 table table-head-fixed text-nowrap" [dataSource]="flatDataSource"
               [treeControl]="flatTreeControl">
 
 
       <!-- Not Expandable Node -->
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding
+                     [style.display]="filterLeafNode(node) ? 'none' : 'block'">
 
         <!-- Others Not Expandable Node -->
 
         <mat-checkbox class="checklist-leaf-node"
                       [checked]="checklistSelection.isSelected(node)"
-                      (change)="todoLeafItemSelectionToggle(node)">{{node.name}} {{node.connectionId}}
-        </mat-checkbox>
+                      (change)="todoLeafItemSelectionToggle(node)"
+
+        >{{node.name}} {{node.connectionId}}</mat-checkbox>
 
 
       </mat-tree-node>
@@ -37,7 +42,8 @@
 
       <!-- Expandable Node -->
 
-      <mat-tree-node *matTreeNodeDef="let node; when: hasFlatChild" matTreeNodePadding>
+      <mat-tree-node *matTreeNodeDef="let node; when: hasFlatChild" matTreeNodePadding
+                     [style.display]="filterParentNode(node) ? 'none' : 'block'">
 
         <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
           <mat-icon class="mat-icon-rtl-mirror">
