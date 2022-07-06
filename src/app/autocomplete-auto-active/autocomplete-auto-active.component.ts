@@ -42,7 +42,7 @@ export class AutocompleteAutoActiveComponent implements OnInit {
       if (cat.name.toLowerCase().includes(term.toLowerCase())) {
         this.matches.push(cat);
       }
-      if (cat.children.length > 0) {
+      if (cat.level < 5 && cat.children.length > 0) {
         this.filter(cat.children, term);
       }
     });
