@@ -5,6 +5,7 @@ import {FlatTreeControl} from "@angular/cdk/tree";
 import {SelectionModel} from "@angular/cdk/collections";
 import {EventEmitterService} from "../event-emitter.service";
 import {Warrengruppe} from "../models/Warrengruppen";
+import {end} from "@popperjs/core";
 
 
 interface FlatNode {
@@ -278,6 +279,10 @@ export class TreeComponent implements OnInit {
       return false
     }
     return true
+  }
+
+  updatedSearchWord(event){
+    this.searchString = event
   }
 
 }

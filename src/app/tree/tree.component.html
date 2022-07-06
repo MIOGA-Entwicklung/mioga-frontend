@@ -11,8 +11,7 @@
     <button class="btn btn-outline-success" (click)="tree.treeControl.expandAll()" style="margin-left: 5px"> Expand All</button>
   </div>
 
-  <app-autocomplete-auto-active [categoryList]="categoriesList"></app-autocomplete-auto-active>
-
+  <app-autocomplete-auto-active [categoryList]="categoriesList" (selectedName)="updatedSearchWord($event)"></app-autocomplete-auto-active>
 
   <div class="card-body table-responsive p-0" style="height: 600px;">
 
