@@ -1,6 +1,6 @@
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Such Nach WarrenGruppe</mat-label>
+    <mat-label> Such Nach WarrenGruppe</mat-label>
     <input type="text"
            placeholder="Choose One"
            aria-label="Warren Gruppe"
@@ -9,7 +9,7 @@
            [matAutocomplete]="auto"
            [value]="" (keyup)="searchKeyup($event)">
 
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)='getSelected($event.option.value)' >
 
       <mat-option *ngFor="let option of matches " [value]="option.name">
         {{option.name}}

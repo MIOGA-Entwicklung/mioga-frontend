@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -20,11 +20,10 @@ export class AutocompleteAutoActiveComponent implements OnInit {
 
   matches = [];
 
+  @Output()
+  selectedName: EventEmitter<string> = new EventEmitter();
 
   searchKeyup(ev) {
-
-    console.log(this.myControl)
-
 
     /** ev.target : The element whose autofill state changes **/
 
@@ -40,10 +39,11 @@ export class AutocompleteAutoActiveComponent implements OnInit {
   }
   filter(categoriesList, term) {
     categoriesList.forEach((cat) => {
-      if (cat.name.includes(term)) {
+      if (cat.name.toLowerCase().includes(term.toLowerCase())) {
         this.matches.push(cat);
       }
-      if (cat.children.length > 0) {
+      //important
+      if (cat.level < 5 && cat.children.length > 0) {
         this.filter(cat.children, term);
       }
     });
@@ -58,4 +58,10 @@ export class AutocompleteAutoActiveComponent implements OnInit {
     );
 
   }
+
+  getSelected(value: string) {
+    console.log(value)
+    this.selectedName.emit(value)
+  }
+
 }

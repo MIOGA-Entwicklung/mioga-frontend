@@ -41,6 +41,9 @@ export class MiogaTreeComponent implements OnInit {
 
   allowCheck = true;
 
+  searchString = ''
+
+
   constructor(private eventEmitterService: EventEmitterService) {
   }
 
@@ -243,4 +246,43 @@ export class MiogaTreeComponent implements OnInit {
     this.checklistSelection.deselect(...this.checklistSelection.selected)
     this.allowCheck=true
   }
+
+  filterLeafNode(node: FlatNode): boolean {
+    if (!this.searchString) {
+      return false
+    }
+    return node.name.toLowerCase()
+      .indexOf(this.searchString?.toLowerCase()) === -1
+  }
+
+  filterParentNode(node: FlatNode): boolean {
+
+    if (
+      !this.searchString ||
+      node.name.toLowerCase()
+        .indexOf(
+          this.searchString?.toLowerCase()
+        ) !== -1
+    ) {
+      return false
+    }
+    const descendants = this.flatTreeControl.getDescendants(node)
+
+    if (
+      descendants.some(
+        (descendantNode) =>
+          descendantNode.name
+            .toLowerCase()
+            .indexOf(this.searchString?.toLowerCase()) !== -1
+      )
+    ) {
+      return false
+    }
+    return true
+  }
+
+  updatedSearchWord(event){
+    this.searchString = event
+  }
+
 }

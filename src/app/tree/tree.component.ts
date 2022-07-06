@@ -5,6 +5,7 @@ import {FlatTreeControl} from "@angular/cdk/tree";
 import {SelectionModel} from "@angular/cdk/collections";
 import {EventEmitterService} from "../event-emitter.service";
 import {Warrengruppe} from "../models/Warrengruppen";
+import {end} from "@popperjs/core";
 
 
 interface FlatNode {
@@ -41,6 +42,7 @@ export class TreeComponent implements OnInit {
     this.tree.treeControl.collapseAll();
   }
 
+  searchString = ''
 
   constructor(private eventEmitterService: EventEmitterService) {
   }
@@ -244,6 +246,44 @@ export class TreeComponent implements OnInit {
     this.checklistSelection.deselect(...this.checklistSelection.selected)
   }
 
+
+  filterLeafNode(node: FlatNode): boolean {
+    if (!this.searchString) {
+      return false
+    }
+    return node.name.toLowerCase()
+      .indexOf(this.searchString?.toLowerCase()) === -1
+  }
+
+  filterParentNode(node: FlatNode): boolean {
+
+    if (
+      !this.searchString ||
+      node.name.toLowerCase()
+        .indexOf(
+          this.searchString?.toLowerCase()
+        ) !== -1
+    ) {
+      return false
+    }
+    const descendants = this.flatTreeControl.getDescendants(node)
+
+    if (
+      descendants.some(
+        (descendantNode) =>
+          descendantNode.name
+            .toLowerCase()
+            .indexOf(this.searchString?.toLowerCase()) !== -1
+      )
+    ) {
+      return false
+    }
+    return true
+  }
+
+  updatedSearchWord(event){
+    this.searchString = event
+  }
 
 }
 
